@@ -9,10 +9,21 @@ use Nyholm\Psr7Server\ServerRequestCreator;
 //use Quiz\Armazenamento\User\Home;
 
 $caminho = $_SERVER['REQUEST_URI'];
+//echo $caminho;
 $rotas = require __DIR__ . '/../config/routes.php';
 
-echo $caminho;
-echo var_dump($_SERVER);
+if (!array_key_exists($caminho, $rotas)) {
+    http_response_code(404);
+    exit();
+}
+
+//session_start();
+//
+//$ehRotaDeLogin = stripos($caminho, 'login');
+//if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
+//    header('Location: /login');
+//    exit();
+//}
 
 $psr17Factory = new Psr17Factory();
 
@@ -25,16 +36,8 @@ $creator = new ServerRequestCreator(
 
 $serverRequest = $creator->fromGlobals();
 
-switch ($caminho) {
-    case '/home':
-        $classeControladora = $rotas[$caminho];
-        $controlador = new $classeControladora();
-        break;
-    default:
-        echo "Erro 404";
-        break;
-}
-
+$classeControladora = $rotas[$caminho];
+$controlador = new $classeControladora();
 $resposta = $controlador->handle($serverRequest);
 
 echo $resposta->getBody();

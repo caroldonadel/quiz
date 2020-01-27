@@ -2,22 +2,22 @@
 
 namespace Quiz\Armazenamento\User;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
 
-//SRC/USER/FORMULARIO: CONTROLLER QUE MOSTRA O HTML DO FORMULÁRIO DE LOGIN QUANDO RECEBE UMA REQUISIÇÃO
-
-class Formulario
+class Formulario implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
 
-    public function handle(Request $request): Response
-    {
-        $html = $this->renderizaHtml('users/formulario-login.php', [
-            'titulo' => 'Login'
-        ]);
+     public function handle(ServerRequestInterface $request): ResponseInterface
+     {
+         $html =  $this->renderizaHtml('users/formulario-login.php', [
+             'titulo' => 'Login'
+         ]);
 
-        return new Response(200, [], $html);
-    }
+         return new Response(200, [], $html);
+     }
 }

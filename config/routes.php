@@ -1,7 +1,8 @@
 <?php
 
-use Quiz\Armazenamento\User\Home;
+use Quiz\Armazenamento\User\{Home, Formulario};
 
 return [
-    '/home' => Home::class,
+    '/quiz/public/home' => Home::class,
+    '/quiz/public/login' => Formulario::class
 ];

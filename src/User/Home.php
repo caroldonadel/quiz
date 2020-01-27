@@ -8,14 +8,14 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
 
-class Home
+class Home implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $html =  $this->renderizaHtml('home.php', [
-//            'titulo' => 'Home'
+            'titulo' => 'Home'
         ]);
 
         return new Response(200, [], $html);
