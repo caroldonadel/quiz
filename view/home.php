@@ -6,7 +6,7 @@
     </div>
 </form>
 
-<form action="/formulario-user" method="post">
+<form action="/quiz/public/novo-user" method="post">
     <div class="form-group">
     <button type="submit" class="btn btn-primary btn-lg btn-block">Novo Usuário</button>
     </div>

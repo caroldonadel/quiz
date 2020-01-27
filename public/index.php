@@ -1,24 +1,24 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../config/config.php';
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
-//use Psr\Container\ContainerInterface;
-//use Psr\Http\Server\RequestHandlerInterface;
-//use Quiz\Armazenamento\User\Home;
+use Psr\Http\Server\RequestHandlerInterface;
 
 $caminho = $_SERVER['REQUEST_URI'];
+//echo var_dump($_SERVER);
 //echo $caminho;
 $rotas = require __DIR__ . '/../config/routes.php';
 
-if (!array_key_exists($caminho, $rotas)) {
-    http_response_code(404);
-    exit();
-}
+//if (!array_key_exists($caminho, $rotas)) {
+//    http_response_code(404);
+//    exit();
+//}
 
-//session_start();
-//
+session_start();
+
 //$ehRotaDeLogin = stripos($caminho, 'login');
 //if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
 //    header('Location: /login');

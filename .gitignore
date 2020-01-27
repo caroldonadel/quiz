@@ -4,4 +4,4 @@
 /logs/*
 !/logs/README.md
 /var/cache/*
-public/.env
+config/config.php
