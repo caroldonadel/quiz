@@ -27,15 +27,15 @@ private $nivel;
 //        $this->id = $id[0]; //ID DO ULTIMO ITEM ADD NA TABELA
     }
 
-    public static function listarUsuarios()
-    {
-//        $query = "SELECT nome,email, senha,nivel FROM usuarios";
-        $query = "SELECT * FROM usuarios";
-        $conexao = self::pegarConexao();
-        $resultado = $conexao->query($query);
-        $listaUsuarios = $resultado->fetchAll();
-        return $listaUsuarios;
-    }
+//    public static function listarUsuarios()
+//    {
+////        $query = "SELECT nome,email, senha,nivel FROM usuarios";
+//        $query = "SELECT * FROM usuarios";
+//        $conexao = self::pegarConexao();
+//        $resultado = $conexao->query($query);
+//        $listaUsuarios = $resultado->fetchAll();
+//        return $listaUsuarios;
+//    }
 
     public static function carregar(){
         $query = "SELECT email, senha FROM usuarios";
@@ -129,7 +129,4 @@ private $nivel;
     {
         $this->nivel = $nivel;
     }
-
-
-
 }

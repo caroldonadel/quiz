@@ -19,11 +19,11 @@ $rotas = require __DIR__ . '/../config/routes.php';
 
 session_start();
 
-//$ehRotaDeLogin = stripos($caminho, 'login');
-//if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
-//    header('Location: /login');
-//    exit();
-//}
+$ehRotaDeLogin = stripos($caminho, 'login');
+if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
+    header('Location: /quiz/public/login');
+    exit();
+}
 
 $psr17Factory = new Psr17Factory();
 
