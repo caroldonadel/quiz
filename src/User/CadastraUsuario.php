@@ -32,9 +32,12 @@ class CadastraUsuario implements RequestHandlerInterface
             FILTER_SANITIZE_STRING
         );
 
+        $hashed_password = password_hash($senha, PASSWORD_ARGON2I);
+//        echo var_dump($hashed_password);
+
         $usuario->setNome($nome);
         $usuario->setEmail($email);
-        $usuario->setSenha($senha);
+        $usuario->setSenha($hashed_password);
         $usuario->setNivel("guest");
 
         $usuario->inserirUsuario();

@@ -10,46 +10,6 @@ private $email;
 private $senha;
 private $nivel;
 
-    public function inserirUsuario()
-    {
-        $query = "INSERT INTO usuarios (nome, email, senha, nivel) VALUES (:nome, :email, :senha, :nivel)";
-        $conexao = self::pegarConexao();
-        $stmt = $conexao->prepare($query);
-        $stmt->bindValue(':nome', $this->nome);
-        $stmt->bindValue(':email', $this->email);
-        $stmt->bindValue(':senha', $this-> senha);
-        $stmt->bindValue(':nivel', $this-> nivel); //DEFINIR COMO PADRAO COMO SENDO GUEST
-        $stmt->execute();
-
-//        $query = "SELECT LAST_INSERT_ID() as last_id";
-//        $stmt = $conexao->query($query); //usar bindValue
-//        $id = $stmt->fetch();
-//        $this->id = $id[0]; //ID DO ULTIMO ITEM ADD NA TABELA
-    }
-
-//    public static function listarUsuarios()
-//    {
-////        $query = "SELECT nome,email, senha,nivel FROM usuarios";
-//        $query = "SELECT * FROM usuarios";
-//        $conexao = self::pegarConexao();
-//        $resultado = $conexao->query($query);
-//        $listaUsuarios = $resultado->fetchAll();
-//        return $listaUsuarios;
-//    }
-
-    public static function carregar(){
-        $query = "SELECT email, senha FROM usuarios";
-        $conexao = self::pegarConexao();
-        $stmt = $conexao->prepare($query);
-
-        $stmt->execute();
-
-//        $query = "SELECT LAST_INSERT_ID() as last_id";
-//        $stmt = $conexao->query($query); //usar bindValue
-//        $id = $stmt->fetch();
-//        $this->id = $id[0];
-    }
-
     /**
      * @return mixed
      */
@@ -128,5 +88,36 @@ private $nivel;
     public function setNivel($nivel)
     {
         $this->nivel = $nivel;
+    }
+
+    public function inserirUsuario()
+    {
+        $query = 'INSERT INTO usuarios (nome, email, senha, nivel) VALUES (:nome, :email, :senha, :nivel)';
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':nome', $this->nome);
+        $stmt->bindValue(':email', $this->email);
+        $stmt->bindValue(':senha', $this-> senha);
+        $stmt->bindValue(':nivel', $this-> nivel); //DEFINIR COMO PADRAO COMO SENDO GUEST
+        $stmt->execute();
+    }
+
+    public function carregar()
+    {
+        $query = "SELECT nome, email, senha, nivel,idusuarios FROM usuarios WHERE email = :email";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':email', $this->email);
+        $stmt->execute();
+        $usuario = $stmt->fetch();
+        $this->nome = $usuario['nome'];
+        $this->senha = $usuario['senha'];
+        $this->nivel = $usuario['nivel'];
+        $this->idUsuario = $usuario['idusuarios'];
+    }
+
+    public function senhaEstaCorreta(string $senhaPura): bool
+    {
+        return password_verify($senhaPura, $this->senha);
     }
 }

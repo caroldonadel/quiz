@@ -17,25 +17,24 @@ class RealizarLogin implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        echo 'metodo chamado';
 
-
-        $email = filter_var( //ou seria filter_input?
+        $email = filter_var(
             $request->getParsedBody()['email'],
             FILTER_VALIDATE_EMAIL
         );
 
-        echo $email;
+        $redirecionamentoLogin = new Response(302, ['Location' => '/quiz/public/login']);
 
-//        $redirecionamentoLogin = new Response(302, ['Location' => '/quiz/public/login']);
-//
-//        if (is_null($email) || $email === false) {
-//            $this->defineMensagem(
-//                'danger',
-//                'O e-mail digitado não é um e-mail válido.'
-//            );
-//
-//            return $redirecionamentoLogin;
-//        }
+        if (is_null($email) || $email === false) {
+            $this->defineMensagem(
+                'danger',
+                'O e-mail digitado não é um e-mail válido.'
+            );
+//            echo "problema com email";
+
+            return $redirecionamentoLogin;
+        }
 
         $senha = filter_input(
             INPUT_POST,
@@ -43,20 +42,23 @@ class RealizarLogin implements RequestHandlerInterface
             FILTER_SANITIZE_STRING
         );
 
-        $senha;
+        $usuario = new UserModel();
+        $usuario->setEmail($email);
+        $usuario->carregar();
 
-        $usuario = UserModel::carregar($email, $senha);
+        echo $senha;
+        echo $usuario->getSenha();
 
-//        if (is_null($usuario) || !$usuario->senhaEstaCorreta($senha)) {
-//            $this->defineMensagem('danger', 'E-mail ou senha inválidos');
-//
-//            return $redirecionamentoLogin;
-//        }
+        if (is_null($usuario) || !$usuario->senhaEstaCorreta($senha)) {
+            $this->defineMensagem('danger', 'E-mail ou senha inválidos');
+
+            return $redirecionamentoLogin;
+        }
 
         $_SESSION['logado'] = true;
 
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
-            'titulo' => 'nao sei ainda'
+            'titulo' => 'Seus Quizzes'
         ]);
 
         return new Response(200, [], $html);

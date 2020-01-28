@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS `quiz`.`usuarios` (
   `email` VARCHAR(255) NOT NULL,
   `senha` VARCHAR(255) NOT NULL,
   `nivel` VARCHAR(5) NOT NULL,
-  PRIMARY KEY (`idusuarios`))
+  PRIMARY KEY (`idusuarios`),
+        unique (email))
 ENGINE = InnoDB;
 
 
