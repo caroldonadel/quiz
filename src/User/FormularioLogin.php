@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
 
-class Formulario implements RequestHandlerInterface
+class FormularioLogin implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
 
