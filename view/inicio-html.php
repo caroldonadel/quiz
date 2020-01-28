@@ -12,7 +12,7 @@
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/logout">Sair</a>
+                <a class="nav-link" href="/quiz/public/logout">Sair</a>
             </li>
         </ul>
     </nav>

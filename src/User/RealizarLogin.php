@@ -4,7 +4,6 @@ namespace Quiz\Armazenamento\User;
 
 use Quiz\Armazenamento\Helper\{FlashMessageTrait, RenderizadorDeHtmlTrait};
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
-use Quiz\Armazenamento\User\UserModel;
 use Nyholm\Psr7\Response;
 use Psr\Http\Server\RequestHandlerInterface;
 
@@ -17,8 +16,6 @@ class RealizarLogin implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        echo 'metodo chamado';
-
         $email = filter_var(
             $request->getParsedBody()['email'],
             FILTER_VALIDATE_EMAIL
@@ -26,12 +23,11 @@ class RealizarLogin implements RequestHandlerInterface
 
         $redirecionamentoLogin = new Response(302, ['Location' => '/quiz/public/login']);
 
-        if (is_null($email) || $email === false) {
+        if ($email === false) {
             $this->defineMensagem(
                 'danger',
                 'O e-mail digitado não é um e-mail válido.'
             );
-//            echo "problema com email";
 
             return $redirecionamentoLogin;
         }
@@ -46,10 +42,7 @@ class RealizarLogin implements RequestHandlerInterface
         $usuario->setEmail($email);
         $usuario->carregar();
 
-        echo $senha;
-        echo $usuario->getSenha();
-
-        if (is_null($usuario) || !$usuario->senhaEstaCorreta($senha)) {
+        if ($usuario===false || !$usuario->senhaEstaCorreta($senha)) {
             $this->defineMensagem('danger', 'E-mail ou senha inválidos');
 
             return $redirecionamentoLogin;

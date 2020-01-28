@@ -110,10 +110,37 @@ private $nivel;
         $stmt->bindValue(':email', $this->email);
         $stmt->execute();
         $usuario = $stmt->fetch();
-        $this->nome = $usuario['nome'];
-        $this->senha = $usuario['senha'];
-        $this->nivel = $usuario['nivel'];
-        $this->idUsuario = $usuario['idusuarios'];
+
+        if (!$usuario===false) {
+            $this->nome = $usuario['nome'];
+            $this->senha = $usuario['senha'];
+            $this->nivel = $usuario['nivel'];
+            $this->idUsuario = $usuario['idusuarios'];
+        }
+    }
+
+    public static function CarregaAdmin()
+    {
+        $query = "SELECT * from usuarios WHERE nivel = 'admin'";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->execute();
+        $listaAdmin = $stmt->fetchAll();
+
+        foreach ($listaAdmin as $lista){
+            $senhaHash = password_hash($lista['senha'], PASSWORD_ARGON2I);
+            self::AlteraSenhaAdmin($senhaHash, $lista);
+        }
+    }
+
+    public static function AlteraSenhaAdmin($senhaHash,$lista)
+    {
+        $query = "UPDATE usuarios set senha = :senha  WHERE idusuarios = :id";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':id', $lista['idusuarios']);
+        $stmt->bindValue(':senha', $senhaHash);
+        $stmt->execute();
     }
 
     public function senhaEstaCorreta(string $senhaPura): bool
