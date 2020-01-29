@@ -15,5 +15,11 @@
             <input type="password" name="senha" class="form-control" id="inputPassword4">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <span>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+
+        <a href="/quiz/public/login" class="btn btn-primary">
+            Voltar para login
+        </a>
+         </span>
 </form>

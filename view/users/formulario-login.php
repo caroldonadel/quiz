@@ -9,7 +9,12 @@
             <label for="exampleInputPassword1">Password</label>
             <input type="password" name="senha" class="form-control" id="exampleInputPassword1">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <span>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/quiz/public/novo-user" class="btn btn-primary">
+            Novo Usuário
+        </a>
+         </span>
 </form>
 
 </div>

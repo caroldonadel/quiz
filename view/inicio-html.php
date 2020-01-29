@@ -8,11 +8,13 @@
 <body>
 <?php if (isset($_SESSION['logado'])): ?>
     <nav class="navbar navbar-dark bg-dark mb-2">
-        <a class="navbar-brand" href="/quiz/public/home">Home</a>
-
-        <ul class="navbar-nav ml-auto">
+        <ul class="nav justify-content-center">
             <li class="nav-item active">
-                <a class="nav-link" href="/quiz/public/logout">Sair</a>
+                <a class="navbar-brand" href="/quiz/public/home">Home</a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="navbar-brand" href="/quiz/public/logout">Sair</a>
             </li>
         </ul>
     </nav>

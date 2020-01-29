@@ -21,7 +21,8 @@ if (!array_key_exists($caminho, $rotas)) {
 session_start();
 
 $ehRotaDeLogin = stripos($caminho, 'login');
-if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
+$ehNovoUser = stripos($caminho, 'user');
+if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false && $ehNovoUser === false) {
     header('Location: /quiz/public/login');
     exit();
 }

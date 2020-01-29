@@ -47,7 +47,8 @@ class CadastraUsuario implements RequestHandlerInterface
         $_SESSION['logado'] = true;
 
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
-            'titulo' => 'Seus Quizzes'
+            'titulo' => 'Seus Quizzes',
+            'nivel' => $usuario->getNivel()
         ]);
 
         return new Response(200, [], $html);
