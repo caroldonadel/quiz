@@ -20,12 +20,11 @@ if (!array_key_exists($caminho, $rotas)) {
 
 session_start();
 
-//ESSE BLOCO ESTA FUNCIONANDO MAS ENQUANTO NAO ESTA PRONTO DEIXAR COMENTADO
-//$ehRotaDeLogin = stripos($caminho, 'login');
-//if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
-//    header('Location: /quiz/public/login');
-//    exit();
-//}
+$ehRotaDeLogin = stripos($caminho, 'login');
+if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
+    header('Location: /quiz/public/login');
+    exit();
+}
 
 $psr17Factory = new Psr17Factory();
 

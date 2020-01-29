@@ -42,6 +42,8 @@ class CadastraUsuario implements RequestHandlerInterface
 
         $usuario->inserirUsuario();
 
+        $usuario->carregar();
+
         $_SESSION['logado'] = true;
 
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
