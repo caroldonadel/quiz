@@ -33,7 +33,6 @@ class CadastraUsuario implements RequestHandlerInterface
         );
 
         $hashed_password = password_hash($senha, PASSWORD_ARGON2I);
-//        echo var_dump($hashed_password);
 
         $usuario->setNome($nome);
         $usuario->setEmail($email);
@@ -41,17 +40,18 @@ class CadastraUsuario implements RequestHandlerInterface
         $usuario->setNivel("guest");
 
         $usuario->inserirUsuario();
-
         $usuario->carregar();
 
         $_SESSION['logado'] = true;
+        $_SESSION['email'] = $usuario->getEmail();
+//        $_SESSION['id'] = $usuario->getIdUsuario();
 
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
             'titulo' => 'Seus Quizzes',
-            'nivel' => $usuario->getNivel()
+            'nivel' => $usuario->getNivel(),
+            'idUsuario' => $usuario->getIdUsuario()
         ]);
 
         return new Response(200, [], $html);
     }
-
 }

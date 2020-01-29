@@ -48,11 +48,13 @@ class RealizarLogin implements RequestHandlerInterface
             return $redirecionamentoLogin;
         }
 
+        $_SESSION['email'] = $usuario->getEmail();
         $_SESSION['logado'] = true;
 
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
             'titulo' => 'Seus Quizzes',
-            'nivel' => $usuario->getNivel()
+            'nivel' => $usuario->getNivel(),
+            'idUsuario' => $usuario->getIdUsuario()
         ]);
 
         return new Response(200, [], $html);

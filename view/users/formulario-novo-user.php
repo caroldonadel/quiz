@@ -21,5 +21,9 @@
         <a href="/quiz/public/login" class="btn btn-primary">
             Voltar para login
         </a>
-         </span>
+
+        <a href="/quiz/public/home" class="btn btn-primary">
+            Home
+        </a>
+     </span>
 </form>

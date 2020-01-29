@@ -5,12 +5,11 @@ require_once __DIR__ . '/../config/config.php';
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
-use Quiz\Armazenamento\User\UserModel;
 //use Psr\Http\Server\RequestHandlerInterface;
 
 //UserModel::CarregaAdmin();
 
-$caminho = $_SERVER['REQUEST_URI'];
+$caminho = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $rotas = require __DIR__ . '/../config/routes.php';
 
 if (!array_key_exists($caminho, $rotas)) {
@@ -22,7 +21,9 @@ session_start();
 
 $ehRotaDeLogin = stripos($caminho, 'login');
 $ehNovoUser = stripos($caminho, 'user');
+//$ehHome = stripos($caminho, 'home');
 if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false && $ehNovoUser === false) {
+//if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false && $ehNovoUser === false && $ehHome ===false) {
     header('Location: /quiz/public/login');
     exit();
 }
@@ -39,6 +40,7 @@ $creator = new ServerRequestCreator(
 $serverRequest = $creator->fromGlobals();
 
 $classeControladora = $rotas[$caminho];
+///** @var RequestHandlerInterface $controlador */
 $controlador = new $classeControladora();
 $resposta = $controlador->handle($serverRequest);
 

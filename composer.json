@@ -9,6 +9,7 @@
     "nyholm/psr7": "^1.1",
     "nyholm/psr7-server": "^0.3.0",
     "psr/http-server-handler": "^1.0",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "ext-json": "*"
   }
 }

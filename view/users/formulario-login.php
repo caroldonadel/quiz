@@ -11,9 +11,14 @@
         </div>
         <span>
             <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="/quiz/public/novo-user" class="btn btn-primary">
-            Novo Usuário
-        </a>
+
+            <a href="/quiz/public/novo-user" class="btn btn-primary">
+                Novo Usuário
+            </a>
+
+            <a href="/quiz/public/home" class="btn btn-primary">
+            Home
+            </a>
          </span>
 </form>
 
