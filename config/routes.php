@@ -11,6 +11,7 @@ use Quiz\Armazenamento\User\{
 use Quiz\Armazenamento\Quiz\{FormularioQuiz, SalvarQuiz};
 use Quiz\Armazenamento\Helper\AbreArquivoJS;
 
+
 return [
     '/quiz/public/home' => Home::class,
     '/quiz/public/inicio' => Inicio::class,

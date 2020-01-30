@@ -46,10 +46,14 @@ class CadastraUsuario implements RequestHandlerInterface
         $_SESSION['email'] = $usuario->getEmail();
 //        $_SESSION['id'] = $usuario->getIdUsuario();
 
+        $quizzes = new QuizModel();
+
+
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
             'titulo' => 'Seus Quizzes',
             'nivel' => $usuario->getNivel(),
-            'idUsuario' => $usuario->getIdUsuario()
+            'idUsuario' => $usuario->getIdUsuario(),
+            'lista' => $quizzes->listar()
         ]);
 
         return new Response(200, [], $html);

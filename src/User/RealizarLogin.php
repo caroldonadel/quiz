@@ -3,6 +3,7 @@
 namespace Quiz\Armazenamento\User;
 
 use Quiz\Armazenamento\Helper\{FlashMessageTrait, RenderizadorDeHtmlTrait};
+use Quiz\Armazenamento\Quiz\QuizModel;
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Nyholm\Psr7\Response;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -51,10 +52,14 @@ class RealizarLogin implements RequestHandlerInterface
         $_SESSION['email'] = $usuario->getEmail();
         $_SESSION['logado'] = true;
 
+        $quizzes = new QuizModel();
+
+
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
             'titulo' => 'Seus Quizzes',
             'nivel' => $usuario->getNivel(),
-            'idUsuario' => $usuario->getIdUsuario()
+            'idUsuario' => $usuario->getIdUsuario(),
+            'lista' => $quizzes->listar()
         ]);
 
         return new Response(200, [], $html);

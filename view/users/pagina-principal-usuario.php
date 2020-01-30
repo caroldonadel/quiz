@@ -14,6 +14,13 @@
             </a>
             <?php  } ?>
         </li>
+<?php foreach ($lista as $linha) : ?>
+    <li class="list-group-item d-flex justify-content-between">
+        <a href="#" class="btn btn-primary btn-lg btn-block">
+            <?= $linha['titulo'] ?>
+        </a>
+    </li>
+    <?php endforeach; ?>
 </ul>
 
 </div>

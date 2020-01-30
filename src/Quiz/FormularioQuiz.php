@@ -18,7 +18,7 @@ class FormularioQuiz implements RequestHandlerInterface
     {
         $html =  $this->renderizaHtml('quiz/formulario-novo-quiz.php', [
             'titulo' => 'Novo Quiz',
-//            'idUsuario' => $request->getQueryParams()['id'],
+            'idUsuario' => $request->getQueryParams()['id'],
         ]);
 
         return new Response(200, [], $html);

@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
+use Quiz\Armazenamento\Quiz\QuizModel;
 
 class Inicio implements RequestHandlerInterface
 {
@@ -19,10 +20,13 @@ class Inicio implements RequestHandlerInterface
         $usuario->setEmail($_SESSION['email']);
         $usuario->carregar();
 
+        $quizzes = new QuizModel();
+
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
             'titulo' => 'Seus Quizzes',
             'nivel' => $usuario->getNivel(),
-            'idUsuario' => $usuario->getIdUsuario()
+            'idUsuario' => $usuario->getIdUsuario(),
+            'lista' => $quizzes->listar()
         ]);
 
         return new Response(200, [], $html);

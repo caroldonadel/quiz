@@ -58,7 +58,7 @@ private $idUsuarios;
         $this->idUsuarios = $idUsuarios;
     }
 
-    public function inserirUsuario()
+    public function inserir()
     {
         $query = 'INSERT INTO quizzes (titulo, idusuarios) VALUES (:titulo, :idusuarios)';
         $conexao = self::pegarConexao();
@@ -66,6 +66,15 @@ private $idUsuarios;
         $stmt->bindValue(':titulo', $this->titulo);
         $stmt->bindValue(':idusuarios', $this->idUsuarios);
         $stmt->execute();
+    }
+
+    public function listar()
+    {
+        $query = "SELECT * FROM quizzes";
+        $conexao = self::pegarConexao();
+        $resultado = $conexao->query($query);
+        $lista = $resultado->fetchAll();
+        return $lista;
     }
 
 //    public function carregar()

@@ -18,6 +18,9 @@ class SalvarQuiz implements RequestHandlerInterface
         $json = file_get_contents('php://input');
         $jsonPayload = json_decode($json);
 
+        echo "controler sendo chamado";
+        var_dump($jsonPayload);
+
         $quiz = new QuizModel();
         $titulo = $jsonPayload->titulo;
         $idusuario = $jsonPayload->idusuario;
@@ -26,6 +29,10 @@ class SalvarQuiz implements RequestHandlerInterface
         $quiz->setIdUsuarios($idusuario);
         $quiz->inserir();
 
-        return new Response(200, ['Content-Type: application/json']);
+        return new Response(200, [], "testando");
+//        return new Response(200, ['Location' => $_SESSION['self']]);
+//        ['Location' => '/quiz/public/home']
+//        "Location:{$_SESSION['self']}"
+//        'Content-Type: application/json'
     }
 }
