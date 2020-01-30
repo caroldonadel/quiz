@@ -1,19 +1,25 @@
 <?php include __DIR__ . '/../inicio-html.php'; ?>
 
-
-<!--<form action="/quiz/public/cadastra-quiz" method="post">-->
-
+<fieldset>
 <div class="form-group">
     <label for="inputAddress">Título do Quiz</label>
     <input type="text" name="nome" class="form-control" id="inputAddress">
     <input type="hidden" value="<?= $idUsuario ?>" id="idUsuario">
 </div>
-    <button type="submit" id="botaoAddQuiz" class="btn btn-primary">Salvar Quiz</button>
+    <fieldset id="listaPerguntas">
+        <div class="form-group">
+            <button id="botaoAddPergunta" class="btn btn-primary">Criar pergunta</button>
+
+
+        </div>
+    </fieldset>
+</fieldset>
+
+<div class="form-group">
+<button id="botaoAddQuiz" class="btn btn-primary">Salvar Quiz</button>
+</div>
 
 <script type="text/javascript" src= "/quiz/public/principal"></script>
-<!--<script type="text/javascript" src= "/../../js/principal.js"></script>-->
-<!--<script type="text/javascript" src= "/../../src/Helper/principal.js"></script>-->
-<!--</form>-->
 
 </body>
 </html>

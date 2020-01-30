@@ -13,9 +13,6 @@ class AbreArquivoJS implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-
-//        echo '<script> window.onload = addQuizAjax(); </script>';
-
         return new Response(200, []);
     }
 }
