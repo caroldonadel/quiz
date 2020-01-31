@@ -84,11 +84,11 @@ private $idUsuarios;
         $stmt->bindValue(':idusuarios', $this->idUsuarios);
         $stmt->execute();
 
-//        $query = "SELECT LAST_INSERT_ID() as last_id";
+        $query = "SELECT LAST_INSERT_ID() as last_id";
 //        $query = "SELECT titulo FROM quizzes where  id = LAST_INSERT_ID()";
-//        $stmt = $conexao->query($query);
-//        $titulo = $stmt->fetch();
-//        $this->tituloUltimoAdicionado = $titulo[0];
+        $stmt = $conexao->query($query);
+        $id = $stmt->fetch();
+        $this->idQuizzes = $id[0];
     }
 
     public function listar()

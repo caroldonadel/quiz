@@ -1,18 +1,17 @@
 <?php include __DIR__ . '/../inicio-html.php'; ?>
 
-<fieldset>
+<fieldset id="formularioQuiz">
 <div class="form-group">
     <label for="inputAddress">Título do Quiz</label>
     <input type="text" name="nome" class="form-control" id="inputAddress">
     <input type="hidden" value="<?= $idUsuario ?>" id="idUsuario">
 </div>
-    <fieldset id="listaPerguntas">
+    <div id="listaPerguntas">
         <div class="form-group">
             <button id="botaoAddPergunta" class="btn btn-primary">Criar pergunta</button>
-
-
         </div>
-    </fieldset>
+    </div>
+
 </fieldset>
 
 <div class="form-group">

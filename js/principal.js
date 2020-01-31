@@ -1,7 +1,7 @@
-<?php
- echo
-
- '
+// <?php
+// echo
+//
+// '
 let botaoAddQuiz = document.querySelector("#botaoAddQuiz");
 let tituloNovoQuiz = document.querySelector("#inputAddress");
 let idUsuarioQuiz = document.querySelector("#idUsuario");
@@ -37,7 +37,7 @@ let addQuizAjax = function() {
             console.log(perguntasAEnviar);
 
 
-            addPerguntasAjax(idQuizAdicionado, perguntas);
+            addPerguntasAjax(idQuizAdicionado, perguntasAEnviar);
 
         }
     }
@@ -159,4 +159,4 @@ let addNovaAlternativa = function(){
 botaoAddQuiz.addEventListener("click", addQuizAjax);
 botaoAddPergunta.addEventListener("click", addNovaPergunta);
 
- ';
+// ';
