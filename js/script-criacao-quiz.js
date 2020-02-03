@@ -1,6 +1,5 @@
 <?php
     echo
-
 '
 let botaoAddQuiz = document.querySelector("#botaoAddQuiz");
 let tituloNovoQuiz = document.querySelector("#inputAddress");
@@ -10,7 +9,7 @@ let botaoAddPergunta = document.querySelector("#botaoAddPergunta");
 let numeroId = 1;
 let idPergunta;
 let alternativaNova;
-
+let  vddOuFalso;
 
 let addQuizAjax = function() {
     let quiz = {titulo: tituloNovoQuiz.value, idusuario: idUsuarioQuiz.value};
@@ -44,8 +43,6 @@ let addQuizAjax = function() {
     };
     xhr.send(JSON.stringify(quiz));
 };
-
-let  vddOuFalso;
 
 let procuraTexto = function(valor, array){
     for(let i=0;i < array.length;i++){
@@ -89,7 +86,6 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
                     for(let i=0;i < alternativas.length;i++){
                         let divAlternativa = alternativas[i].closest("div");
                         let radio = divAlternativa.querySelector("input[type=radio]");
-                            // fieldset.querySelector("input[type=radio]");
                             console.log(radio);
 
                             if(radio.classList.contains("check") === true){
