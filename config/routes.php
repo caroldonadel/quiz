@@ -8,7 +8,7 @@ use Quiz\Armazenamento\User\{
     FormularioLogin,
     Inicio,
     RealizarLogin};
-use Quiz\Armazenamento\Quiz\{FormularioQuiz, SalvarAlternativas, SalvarPerguntas, SalvarQuiz};
+use Quiz\Armazenamento\Quiz\{FormularioQuiz, MostraQuiz, SalvarAlternativas, SalvarPerguntas, SalvarQuiz};
 use Quiz\Armazenamento\Helper\AbreArquivoJS;
 
 
@@ -24,6 +24,7 @@ return [
     '/quiz/public/cadastra-quiz' => SalvarQuiz::class,
     '/quiz/public/principal' => AbreArquivoJS::class,
     '/quiz/public/cadastra-perguntas' => SalvarPerguntas::class,
-    '/quiz/public/cadastra-respostas' => SalvarAlternativas::class
+    '/quiz/public/cadastra-respostas' => SalvarAlternativas::class,
+    '/quiz/public/quiz' => MostraQuiz::class
 ];
 

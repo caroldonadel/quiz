@@ -7,7 +7,7 @@ use Quiz\Armazenamento\User\Model;
 
 class PerguntasModel extends Model
 {
-    private $idquiz;
+    private $idquizzes;
     private $titulo;
     private $idperguntas;
 
@@ -24,7 +24,7 @@ class PerguntasModel extends Model
      */
     public function setIdquiz($idquiz)
     {
-        $this->idquiz = $idquiz;
+        $this->idquizzes = $idquiz;
     }
 
     /**
@@ -73,4 +73,24 @@ class PerguntasModel extends Model
         $id = $stmt->fetch();
         $this->idperguntas = $id[0];
     }
+    public function carregar()
+    {
+        $query = "SELECT * FROM perguntas WHERE idquizzes = :idquiz";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idquiz', $this->idquizzes);
+        $stmt->execute();
+        $lista = $stmt->fetchAll();
+
+        return $lista;
+    }
+
+//    public function listar()
+//    {
+//        $query = "SELECT * FROM perguntas";
+//        $conexao = self::pegarConexao();
+//        $resultado = $conexao->query($query);
+//        $lista = $resultado->fetchAll();
+//        return $lista;
+//    }
 }

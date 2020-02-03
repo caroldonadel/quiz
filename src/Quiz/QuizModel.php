@@ -100,20 +100,18 @@ private $idUsuarios;
         return $lista;
     }
 
-//    public function carregar()
-//    {
-//        $query = "SELECT titulo, idquizzes, idusuarios FROM quizzes WHERE email = :email";
-//        $conexao = self::pegarConexao();
-//        $stmt = $conexao->prepare($query);
-//        $stmt->bindValue(':email', $this->email);
-//        $stmt->execute();
-//        $usuario = $stmt->fetch();
-//
-//        if (!$usuario===false) {
-//            $this->nome = $usuario['nome'];
-//            $this->senha = $usuario['senha'];
-//            $this->nivel = $usuario['nivel'];
-//            $this->idUsuario = $usuario['idusuarios'];
-//        }
-//    }
+    public function carregar()
+    {
+        $query = "SELECT * FROM quizzes WHERE idquizzes = :idquiz";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idquiz', $this->idQuizzes);
+        $stmt->execute();
+        $quiz = $stmt->fetch();
+
+        if (!$quiz===false) {
+            $this->titulo = $quiz['titulo'];
+            $this->idUsuarios = $quiz['idusuarios'];
+        }
+    }
 }

@@ -12,7 +12,7 @@ use Quiz\Armazenamento\Quiz\QuizModel;
 class Inicio implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
-    use Quiz\Armazenamento\User\UserModel;
+//    use Quiz\Armazenamento\User\UserModel;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -26,7 +26,7 @@ class Inicio implements RequestHandlerInterface
             'titulo' => 'Seus Quizzes',
             'nivel' => $usuario->getNivel(),
             'idUsuario' => $usuario->getIdUsuario(),
-            'lista' => $quizzes->listar()
+            'lista' => $quizzes->listar(),
         ]);
 
         return new Response(200, [], $html);

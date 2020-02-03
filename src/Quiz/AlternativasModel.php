@@ -85,10 +85,17 @@ class AlternativasModel extends Model
         $stmt->bindValue(':idperguntas', $this->idperguntas);
         $stmt->bindValue(':correta', $this->correta);
         $stmt->execute();
+    }
 
-//        $query = "SELECT LAST_INSERT_ID() as last_id";
-//        $stmt = $conexao->query($query);
-//        $id = $stmt->fetch();
-//        $this->idperguntas = $id[0];
+    public function carregar()
+    {
+        $query = "SELECT * FROM alternativas WHERE idperguntas = :idperguntas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idperguntas', $this->idperguntas);
+        $stmt->execute();
+        $alternativas = $stmt->fetchAll();
+
+        return $alternativas;
     }
 }
