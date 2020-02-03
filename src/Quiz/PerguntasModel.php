@@ -61,7 +61,7 @@ class PerguntasModel extends Model
 
     public function inserir()
     {
-        $query = 'INSERT INTO perguntas (titulo, idquizzes) VALUES (:titulo, :$idquiz)';
+        $query = 'INSERT INTO perguntas (titulo, idquizzes) VALUES (:titulo, :idquiz)';
         $conexao = self::pegarConexao();
         $stmt = $conexao->prepare($query);
         $stmt->bindValue(':titulo', $this->titulo);

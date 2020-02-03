@@ -5,6 +5,8 @@ require_once __DIR__ . '/../config/config.php';
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
+use Quiz\Armazenamento\User\UserModel;
+
 //use Psr\Http\Server\RequestHandlerInterface;
 
 //UserModel::CarregaAdmin();

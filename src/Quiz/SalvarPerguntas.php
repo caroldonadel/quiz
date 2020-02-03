@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Quiz\Armazenamento\Quiz;
 
 use Quiz\Armazenamento\Helper\FlashMessageTrait;
@@ -14,20 +13,21 @@ class SalvarPerguntas implements RequestHandlerInterface
     {
         $json = file_get_contents('php://input');
         $perguntas = json_decode($json, true);
+        $perguntaEid = [];
 
-        var_dump($perguntas);
 
-        foreach ($perguntas["perguntas"] as $pergunta){
+        foreach ($perguntas["perguntas"] as $tituloPergunta){
             $pergunta = new PerguntasModel();
-            $titulo = $pergunta;
-            var_dump($titulo);
+            $pergunta->setTitulo($tituloPergunta);
             $idquiz = $perguntas["idquiz"];
-            echo $idquiz;
+            $pergunta->setIdquiz($idquiz);
 
-            $pergunta->setTitulo($titulo);
-            $pergunta->setIdQuiz($idquiz);
             $pergunta->inserir();
+
+            $perguntaEidLoop = [$pergunta->getTitulo(), $pergunta->getIdperguntas()];
+            array_push($perguntaEid, $perguntaEidLoop);
     }
-        return new Response(200, []);
+//        return new Response(200, [], $pergunta->getIdperguntas());
+        return new Response(200, [], json_encode($perguntaEid));
     }
 }

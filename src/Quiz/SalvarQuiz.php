@@ -22,5 +22,6 @@ class SalvarQuiz implements RequestHandlerInterface
         $quiz->inserir();
 
         return new Response(200, [], $quiz->getIdQuizzes());
+//        return new Response(200, [], json_encode($quiz));
     }
 }

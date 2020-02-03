@@ -1,13 +1,16 @@
 <?php
- echo
+echo
 
- '
+'
 let botaoAddQuiz = document.querySelector("#botaoAddQuiz");
 let tituloNovoQuiz = document.querySelector("#inputAddress");
 let idUsuarioQuiz = document.querySelector("#idUsuario");
 let listaPerguntas = document.querySelector("#listaPerguntas");
 let botaoAddPergunta = document.querySelector("#botaoAddPergunta");
 let numeroId = 1;
+let idPergunta;
+let alternativaNova;
+
 
 let addQuizAjax = function() {
     let quiz = {titulo: tituloNovoQuiz.value, idusuario: idUsuarioQuiz.value};
@@ -19,33 +22,48 @@ let addQuizAjax = function() {
     xhr.onload = function() {
         if (xhr.status === 200) {
 
-            console.log(JSON.parse(xhr.responseText));
             let idQuizAdicionado = JSON.parse(xhr.responseText);
-
-            //chama função que manda request pro caminho da classe SalvarPerguntas e manda o id do quiz pra la
-
             let divAlerta = document.querySelector("#divAlerta");
+
+            //mandar um ok como resposta de sucesso da função de addalternativas e aqui um if
             divAlerta.className = "alert alert-success";
             divAlerta.innerText = "Quiz salvo com sucesso";
 
-            let perguntas = listaPerguntas.querySelectorAll("input[type=text]");
+            let perguntas = listaPerguntas.querySelectorAll(".pergunta");
+            // let perguntas = listaPerguntas.querySelectorAll("input[type=text]");
             let perguntasAEnviar = [];
+
             for(let i=0;i < perguntas.length;i++){
                 console.log(perguntas[i].value);
                 perguntasAEnviar.push(perguntas[i].value);
             }
             console.log(perguntasAEnviar);
 
-
-            addPerguntasAjax(idQuizAdicionado, perguntas);
-
+            addPerguntasAjax(idQuizAdicionado, perguntasAEnviar);
         }
-    }
+    };
     xhr.send(JSON.stringify(quiz));
 };
 
+let  vddOuFalso;
+
+let procuraTexto = function(valor, array){
+    for(let i=0;i < array.length;i++){
+        if (array[i][0].includes(valor)){
+
+            vddOuFalso = true;
+            idPergunta = array[i][1];
+            break;
+        } else {
+            vddOuFalso =  false;
+        }
+    }
+    return vddOuFalso;
+};
+
 let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
-    let perguntasNovas = {idquiz: idQuizAdicionado, perguntas:{perguntas}};
+
+    let perguntasNovas = {idquiz: idQuizAdicionado, perguntas:perguntas};
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/quiz/public/cadastra-perguntas");
@@ -53,9 +71,51 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
     xhr.onload = function() {
         if (xhr.status === 200) {
+            let PerguntasEid = JSON.parse(xhr.responseText);
+
+            let perguntasLista = listaPerguntas.querySelectorAll(".pergunta");
+
+            for(let i=0;i < perguntasLista.length;i++){
+
+                if(procuraTexto(perguntasLista[i].value,PerguntasEid)===true){
+                    console.log("sao iguais");
+                    let alternativas;
+                    let pergunta = perguntasLista[i];
+                    let fieldset = pergunta.closest("fieldset");
+                    alternativas = fieldset.querySelectorAll(".alternativa");
+
+                    console.log(alternativas);
+
+                    for(let i=0;i < alternativas.length;i++){
+                        let divAlternativa = alternativas[i].closest("div");
+                        let radio = divAlternativa.querySelector("input[type=radio]");
+                            // fieldset.querySelector("input[type=radio]");
+                            console.log(radio);
+
+                            if(radio.classList.contains("check") === true){
+                                alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 1};
+                            }else{
+                                alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 0};
+                            }
+
+                        console.log(alternativaNova);
+                        addAlternativasAjax(alternativaNova);
+                    }
+                }
+            }
         }
-    }
+    };
+
     xhr.send(JSON.stringify(perguntasNovas));
+};
+
+let addAlternativasAjax = function(AlternativaNova) {
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/quiz/public/cadastra-respostas");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(JSON.stringify(AlternativaNova));
 };
 
 let addNovaPergunta = function(){
@@ -71,7 +131,7 @@ let addNovaPergunta = function(){
 
     let inputPergunta = document.createElement("input");
     inputPergunta.type = "text";
-    inputPergunta.className = "form-control";
+    inputPergunta.className = "form-control pergunta";
 
     let divBotao = document.createElement("div");
     divBotao.className = "form-group col-md-2";
@@ -129,9 +189,10 @@ let addNovaAlternativa = function(){
     divInputGroup.className = "input-group-prepend";
 
     let divRadio =  document.createElement("div");
-    divRadio.className = "input-group-text";
+    divRadio.className = "input-group-text radio";
 
     let inputRadio = document.createElement("input");
+    inputRadio.className = "radio";
     inputRadio.type = "radio";
     inputRadio.id = "inlineRadio" + numeroId;
     inputRadio.value = "option" + numeroId;
@@ -139,7 +200,7 @@ let addNovaAlternativa = function(){
 
     let inputAlternativa = document.createElement("input");
     inputAlternativa.type = "text";
-    inputAlternativa.className = "form-control";
+    inputAlternativa.className = "form-control alternativa";
     inputAlternativa.id = "alternativaTexto" + numeroId;
 
     botaoParent = this.parentNode;
@@ -154,9 +215,22 @@ let addNovaAlternativa = function(){
     divTodasAlternativas.appendChild(inputAlternativa);
 
     numeroId++;
+
+    inputRadio.addEventListener("click", checkRadioButton);
+};
+
+let checkRadioButton = function (event) {
+    let elementoAtivo = event.currentTarget;
+
+    if(elementoAtivo.classList.contains("check")){
+        elementoAtivo.className = "radio";
+    }else {
+        elementoAtivo.className = "radio check";
+    }
+
+    console.log(elementoAtivo);
 };
 
 botaoAddQuiz.addEventListener("click", addQuizAjax);
 botaoAddPergunta.addEventListener("click", addNovaPergunta);
-
- ';
+';

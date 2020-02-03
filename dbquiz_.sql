@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `quiz`.`quizzes` (
   `titulo` VARCHAR(250) NOT NULL,
   `idusuarios` INT NOT NULL,
   PRIMARY KEY (`idquizzes`),
+  unique (titulo),
   INDEX `fk_quizzes_usuarios_idx` (`idusuarios` ASC) ,
   CONSTRAINT `fk_quizzes_usuarios`
     FOREIGN KEY (`idusuarios`)
