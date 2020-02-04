@@ -16,12 +16,12 @@ class FormularioQuiz implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $quizzes = new QuizModel();
+//        $quizzes = new QuizModel();
 
         $html =  $this->renderizaHtml('quiz/formulario-novo-quiz.php', [
             'titulo' => 'Novo Quiz',
-            'idUsuario' => $request->getQueryParams()['id'],
-            'lista' => $quizzes->listar()
+            'idUsuario' => $request->getQueryParams()['id']
+//            'lista' => $quizzes->listar()
 //            'tituloUltimoQuiz' => $quizzes->getTituloUltimoAdicionado()
         ]);
 

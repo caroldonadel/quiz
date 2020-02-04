@@ -31,7 +31,7 @@ class MostraQuiz implements RequestHandlerInterface
         $listaAlternativas = $alternativas->carregar();
 
 //        echo '<pre>';
-//        var_dump($listaAlternativas);
+//        var_dump($lista);
 //        echo '</pre>';
 
 //        foreach ($listaAlternativas as $alternativa){

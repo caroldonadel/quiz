@@ -16,7 +16,7 @@ class PerguntasModel extends Model
      */
     public function getIdquiz()
     {
-        return $this->idquiz;
+        return $this->$idquizzes;
     }
 
     /**
@@ -65,7 +65,7 @@ class PerguntasModel extends Model
         $conexao = self::pegarConexao();
         $stmt = $conexao->prepare($query);
         $stmt->bindValue(':titulo', $this->titulo);
-        $stmt->bindValue(':idquiz', $this->idquiz);
+        $stmt->bindValue(':idquiz', $this->idquizzes);
         $stmt->execute();
 
         $query = "SELECT LAST_INSERT_ID() as last_id";

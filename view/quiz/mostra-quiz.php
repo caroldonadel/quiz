@@ -1,5 +1,5 @@
 <?php include __DIR__ . '/../inicio-html.php';?>
-
+<input type="hidden" value="<?= $idquiz?>" id="idUsuario">
 <div id="dom-target1" style="display: none;">
     <?php
     $listaPerg = $listaPerguntas;

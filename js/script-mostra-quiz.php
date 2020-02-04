@@ -19,9 +19,9 @@ let carregaProximaPergunta = function() {
 
             let dadosQuiz = JSON.parse(xhr.responseText);
             let titulo = document.querySelector("h1");
-            // console.log(titulo);
-            // titulo.innerHTML  = dadosQuiz["titulo"];
-            titulo.innerHTML  = "teste";
+            console.log(dadosQuiz["listaPerguntas"]["1"]);
+            titulo.innerHTML  = dadosQuiz["titulo"];
+            // titulo.innerHTML  = "teste";
 
             let div1 = document.getElementById("dom-target1");
             div1.textContent = dadosQuiz["listaPerguntas"];

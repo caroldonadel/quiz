@@ -30,7 +30,13 @@ class ProximaPergunta implements RequestHandlerInterface
         $indice =0;
         $indice++;
 
-        var_dump($lista);
+//        echo count($lista);
+//        var_dump($lista);
+
+        if(count($lista)===0){
+
+            $resposta = "MOSTRAR RESULTADO";
+        }else {
 
         $alternativas = new AlternativasModel();
         $alternativas->setIdperguntas($lista[$indice]['idperguntas']);
@@ -55,12 +61,17 @@ class ProximaPergunta implements RequestHandlerInterface
 ////        $listaAlt = [];
 //        $listaAlternativas = $alternativas->carregar();
 //
-        $resposta = ["titulo" => $quiz->getTitulo(),
-            "idquiz" => $quiz->getIdQuizzes(),
-            "listaPerguntas" => $lista,
-            "listaAlternativas" => $listaAlternativas];
+        $resposta = ['titulo' => $quiz->getTitulo(),
+            'idquiz' => $quiz->getIdQuizzes(),
+            'listaPerguntas' => $lista,
+            'listaAlternativas' => $listaAlternativas];
 
-//        return new Response(200, [], json_encode($resposta));
-        return new Response(200, [], $resposta);
+//        $resposta = ['listaPerguntas' => $lista];
+
+//        var_dump($resposta);
+      }
+
+        return new Response(200, [], json_encode($resposta));
+//        return new Response(200, [], $resposta);
     }
 }

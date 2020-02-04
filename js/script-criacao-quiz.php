@@ -1,19 +1,19 @@
 <?php
 echo
-
 '
 let botaoAddQuiz = document.querySelector("#botaoAddQuiz");
 let tituloNovoQuiz = document.querySelector("#inputAddress");
-let idUsuarioQuiz = document.querySelector("#idUsuario");
+let idUsuarioQuiz = document.querySelector("#idUsuario").value;
 let listaPerguntas = document.querySelector("#listaPerguntas");
 let botaoAddPergunta = document.querySelector("#botaoAddPergunta");
 let numeroId = 1;
 let idPergunta;
 let alternativaNova;
+let  vddOuFalso;
 
 
 let addQuizAjax = function() {
-    let quiz = {titulo: tituloNovoQuiz.value, idusuario: idUsuarioQuiz.value};
+    let quiz = {titulo: tituloNovoQuiz.value, idusuario: idUsuarioQuiz};
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/quiz/public/cadastra-quiz");
@@ -23,6 +23,7 @@ let addQuizAjax = function() {
         if (xhr.status === 200) {
 
             let idQuizAdicionado = JSON.parse(xhr.responseText);
+            console.log(idQuizAdicionado);
             let divAlerta = document.querySelector("#divAlerta");
 
             //mandar um ok como resposta de sucesso da função de addalternativas e aqui um if
@@ -44,8 +45,6 @@ let addQuizAjax = function() {
     };
     xhr.send(JSON.stringify(quiz));
 };
-
-let  vddOuFalso;
 
 let procuraTexto = function(valor, array){
     for(let i=0;i < array.length;i++){
@@ -89,14 +88,13 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
                     for(let i=0;i < alternativas.length;i++){
                         let divAlternativa = alternativas[i].closest("div");
                         let radio = divAlternativa.querySelector("input[type=radio]");
-                            // fieldset.querySelector("input[type=radio]");
-                            console.log(radio);
+                        console.log(radio);
 
-                            if(radio.classList.contains("check") === true){
-                                alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 1};
-                            }else{
-                                alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 0};
-                            }
+                        if(radio.classList.contains("check") === true){
+                            alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 1};
+                        }else{
+                            alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 0};
+                        }
 
                         console.log(alternativaNova);
                         addAlternativasAjax(alternativaNova);
