@@ -11,14 +11,16 @@ use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
 class ProximaPergunta implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
-//    private $indice = 0;
+//    private static $indice = 0;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+//        echo $this->indice;
         $json = file_get_contents('php://input');
         $jsonPayload = json_decode($json);
 
         $id = $jsonPayload->id;
+        $indice= $jsonPayload->indice;
         $quiz = new QuizModel();
         $quiz->setIdQuizzes($id);
         $quiz->carregar();
@@ -26,12 +28,13 @@ class ProximaPergunta implements RequestHandlerInterface
         $perguntas = new PerguntasModel();
         $perguntas->setIdquiz($quiz->getIdQuizzes());
         $lista = $perguntas->carregar();
-        unset($lista[0]);
-        $indice =0;
-        $indice++;
 
-//        echo count($lista);
 //        var_dump($lista);
+        echo $indice;
+
+        unset($lista[$indice]);
+
+        echo array_key_first($lista);
 
         if(count($lista)===0){
 
@@ -39,7 +42,7 @@ class ProximaPergunta implements RequestHandlerInterface
         }else {
 
         $alternativas = new AlternativasModel();
-        $alternativas->setIdperguntas($lista[$indice]['idperguntas']);
+        $alternativas->setIdperguntas($lista[$indice+1]['idperguntas']);
 //        $listaAlt = [];
         $listaAlternativas = $alternativas->carregar();
 

@@ -4,11 +4,11 @@ echo
 
 let botaoProxima = document.querySelector("button");
 let inputHidden = document.querySelector("input[type=hidden");
-
+let indiceListaPerguntas=0;
 
 let carregaProximaPergunta = function() {
 
-    let idQuizAtual = {id: inputHidden.value};
+    let idQuizAtual = {id: inputHidden.value, indice: indiceListaPerguntas};
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/quiz/public/proxima-pergunta");
@@ -19,17 +19,11 @@ let carregaProximaPergunta = function() {
 
             let dadosQuiz = JSON.parse(xhr.responseText);
             let titulo = document.querySelector("h1");
-            console.log(dadosQuiz["listaPerguntas"]["1"]);
             titulo.innerHTML  = dadosQuiz["titulo"];
-            // titulo.innerHTML  = "teste";
 
-            let div1 = document.getElementById("dom-target1");
-            div1.textContent = dadosQuiz["listaPerguntas"];
-            let div2 = document.getElementById("dom-target2");
-            div2.textContent = dadosQuiz["listaAlternativas"];
+            let pergunta = document.querySelector("p");
+            pergunta.innerHTML = dadosQuiz["listaPerguntas"]["1"]["titulo"];
 
-            console.log(dadosQuiz["listaPerguntas"]);
-            console.log(dadosQuiz["listaAlternativas"]);
 
             // let divAlerta = document.querySelector("#divAlerta");
             // divAlerta.className = "alert alert-success";
@@ -48,7 +42,8 @@ let carregaProximaPergunta = function() {
             // addPerguntasAjax(idQuizAdicionado, perguntasAEnviar);
         }
     };
-
+    indiceListaPerguntas++;
+    console.log(indiceListaPerguntas);
     xhr.send(JSON.stringify(idQuizAtual));
 };
 
