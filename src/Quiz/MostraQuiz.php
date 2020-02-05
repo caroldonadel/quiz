@@ -28,7 +28,7 @@ class MostraQuiz implements RequestHandlerInterface
 
         $alternativas = new AlternativasModel();
         $alternativas->setIdperguntas($lista[0]['idperguntas']);
-        $listaAlternativas = $alternativas->carregar();
+        $listaAlternativas = $alternativas->listar();
 
         $html =  $this->renderizaHtml('quiz/mostra-quiz.php', [
             'titulo' => $quiz->getTitulo(),

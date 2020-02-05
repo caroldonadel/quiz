@@ -84,13 +84,4 @@ class PerguntasModel extends Model
 
         return $lista;
     }
-
-//    public function listar()
-//    {
-//        $query = "SELECT * FROM perguntas";
-//        $conexao = self::pegarConexao();
-//        $resultado = $conexao->query($query);
-//        $lista = $resultado->fetchAll();
-//        return $lista;
-//    }
 }

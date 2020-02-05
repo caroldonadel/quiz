@@ -68,5 +68,17 @@ class RespostaModel extends Model
         $stmt->bindValue(':idalternativas', $this->idalternativas);
         $stmt->execute();
     }
+    public function carregar()
+    {
+        $query = "SELECT * FROM respostas WHERE idusuarios = :idusuarios";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idusuarios', $this->idusuarios);
+        $stmt->execute();
+        $lista = $stmt->fetchAll();
+
+        return $lista;
+    }
+
 
 }

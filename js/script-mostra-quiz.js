@@ -29,11 +29,13 @@ let carregaProximaPergunta = function() {
                 let botao = document.querySelector("#botaoProxima");
                 botao.remove();
 
-                let botaoResultado = document.createElement("button");
+                let botaoResultado = document.createElement("a");
                 divConteudo.appendChild(botaoResultado);
                 botaoResultado.innerText = "Resultado";
                 botaoResultado.id = "botaoResultado";
                 botaoResultado.className = "btn btn-light";
+                botaoResultado.href = "/quiz/public/resultado?idquiz=" + idQuiz.value + "&iduser=" + idUser.value;
+
             }else {
 
                 let titulo = document.querySelector("h1");

@@ -8,8 +8,10 @@ use Quiz\Armazenamento\User\{
     FormularioLogin,
     Inicio,
     RealizarLogin};
-use Quiz\Armazenamento\Quiz\{FormularioQuiz,
+use Quiz\Armazenamento\Quiz\{CalculaResultado,
+    FormularioQuiz,
     MostraQuiz,
+    MostraResultado,
     ProximaPergunta,
     SalvarAlternativas,
     SalvarPerguntas,
@@ -34,6 +36,8 @@ return [
     '/quiz/public/quiz' => MostraQuiz::class,
     '/quiz/public/mostra-quiz' => AbreScriptMostraQuiz::class,
     '/quiz/public/proxima-pergunta' => ProximaPergunta::class,
-    '/quiz/public/cadastra-respostas' => SalvarRespostas::class
+    '/quiz/public/cadastra-respostas' => SalvarRespostas::class,
+    '/quiz/public/resultado' => CalculaResultado::class,
+    '/quiz/public/mostra-resultado' => MostraResultado::class
 ];
 
