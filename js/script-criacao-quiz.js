@@ -110,7 +110,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 let addAlternativasAjax = function(AlternativaNova) {
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/cadastra-respostas");
+    xhr.open("POST", "/quiz/public/cadastra-alternativas");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.send(JSON.stringify(AlternativaNova));

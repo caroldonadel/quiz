@@ -13,7 +13,8 @@ use Quiz\Armazenamento\Quiz\{FormularioQuiz,
     ProximaPergunta,
     SalvarAlternativas,
     SalvarPerguntas,
-    SalvarQuiz};
+    SalvarQuiz,
+    SalvarRespostas};
 use Quiz\Armazenamento\Helper\AbreScriptMostraQuiz;
 use Quiz\Armazenamento\Helper\AbreScriptNovoQuiz;
 
@@ -29,9 +30,10 @@ return [
     '/quiz/public/cadastra-quiz' => SalvarQuiz::class,
     '/quiz/public/principal' => AbreScriptNovoQuiz::class,
     '/quiz/public/cadastra-perguntas' => SalvarPerguntas::class,
-    '/quiz/public/cadastra-respostas' => SalvarAlternativas::class,
+    '/quiz/public/cadastra-alternativas' => SalvarAlternativas::class,
     '/quiz/public/quiz' => MostraQuiz::class,
     '/quiz/public/mostra-quiz' => AbreScriptMostraQuiz::class,
-    '/quiz/public/proxima-pergunta' => ProximaPergunta::class
+    '/quiz/public/proxima-pergunta' => ProximaPergunta::class,
+    '/quiz/public/cadastra-respostas' => SalvarRespostas::class
 ];
 

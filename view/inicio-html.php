@@ -20,12 +20,13 @@
     </nav>
 <?php endif; ?>
 
-<div class="container">
-    <div class="jumbotron">
-        <h1><?= $titulo; ?></h1>
+<div class="container" >
+    <div class="card text-white bg-info mb-3" style="width: 100%">
+        <div class="card-body">
+            <h1><?= $titulo; ?></h1>
+        </div>
     </div>
-    <div id="divAlerta" class="alert">
-
+    <div id="divAlerta" class="alert" style="margin: 0">
     <?php if (isset($_SESSION['mensagem'])): ?>
             <?= $_SESSION['mensagem']; ?>
     <?php

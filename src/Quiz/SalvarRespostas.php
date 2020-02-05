@@ -14,15 +14,15 @@ class SalvarRespostas implements RequestHandlerInterface
         $jsonPayload = json_decode($json);
 
         $idusuario = $jsonPayload->iduser;
-        $idpergunta = $jsonPayload->idpergunta;
         $idalternativa = $jsonPayload->idResp;
 
-    $resposta = new RespostaModel();
-    $resposta->setIdperguntas($idpergunta);
-    $resposta->setIdusuarios($idusuario);
-    $resposta->setIdalternativas($idalternativa);
+        $resposta = new RespostaModel();
+        $resposta->setIdusuarios($idusuario);
+        $resposta->setIdalternativas($idalternativa);
 
-    $resposta->inserir();
+        $resposta->inserir();
+
+        var_dump($resposta);
 
         return new Response(200, []);
     }

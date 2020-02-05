@@ -3,6 +3,7 @@
 namespace Quiz\Armazenamento\User;
 
 use Quiz\Armazenamento\Helper\{FlashMessageTrait, RenderizadorDeHtmlTrait};
+use Quiz\Armazenamento\Quiz\QuizModel;
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Nyholm\Psr7\Response;
 use Psr\Http\Server\RequestHandlerInterface;

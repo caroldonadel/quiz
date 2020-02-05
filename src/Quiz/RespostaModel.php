@@ -7,7 +7,7 @@ use Quiz\Armazenamento\User\Model;
 
 class RespostaModel extends Model
 {
-    private $idperguntas;
+//    private $idperguntas;
     private $idusuarios;
     private $idalternativas;
 
@@ -61,10 +61,9 @@ class RespostaModel extends Model
 
     public function inserir()
     {
-        $query = 'INSERT INTO respostas (idperguntas, idusuarios, idalternativas) VALUES (:idperguntas, :idusuarios, :idalternativas)';
+        $query = 'INSERT INTO respostas (idusuarios, idalternativas) VALUES (:idusuarios, :idalternativas)';
         $conexao = self::pegarConexao();
         $stmt = $conexao->prepare($query);
-        $stmt->bindValue(':idperguntas', $this->idperguntas);
         $stmt->bindValue(':idusuarios', $this->idusuarios);
         $stmt->bindValue(':idalternativas', $this->idalternativas);
         $stmt->execute();
