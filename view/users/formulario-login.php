@@ -16,12 +16,12 @@
                 Novo Usuário
             </a>
 
-            <a href="/quiz/public/home" class="btn btn-primary">
-            Home
-            </a>
+<!--            <a href="/quiz/public/home" class="btn btn-primary">-->
+<!--            Home-->
+<!--            </a>-->
          </span>
 </form>
-
+<h1> <?=  $_SESSION['logado'] ?> </h1>
 </div>
 </body>
 </html>

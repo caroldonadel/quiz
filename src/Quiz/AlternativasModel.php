@@ -101,7 +101,7 @@ class AlternativasModel extends Model
 
     public function carregar()
     {
-        $query = "SELECT * FROM alternativas WHERE idperguntas = :idperguntas & correta = 1";
+        $query = "SELECT * FROM alternativas WHERE idperguntas = :idperguntas AND correta = 1";
         $conexao = self::pegarConexao();
         $stmt = $conexao->prepare($query);
         $stmt->bindValue(':idperguntas', $this->idperguntas);

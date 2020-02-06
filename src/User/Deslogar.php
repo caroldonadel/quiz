@@ -12,6 +12,7 @@ class Deslogar implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         session_destroy();
+        $_SESSION = [];
         return new Response(302, ['Location' => '/quiz/public/home'] );
     }
 }

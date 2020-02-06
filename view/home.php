@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/inicio-html.php'; ?>
+<?php include __DIR__ . '/inicio-html.php';?>
 
 <form action="/quiz/public/login" method="post">
     <div class="form-group">

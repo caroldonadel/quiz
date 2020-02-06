@@ -13,14 +13,14 @@
             <?php  } ?>
         </li>
 <?php foreach ($lista as $linha) : ?>
-    <li class="list-group-item d-flex justify-content-between">
+    <li class=" list-group-item d-flex justify-content-between">
         <a href="/quiz/public/quiz?id=<?= $linha['idquizzes'] ?>&idUser=<?= $idUsuario ?>" class="btn btn-primary btn-lg btn-block">
             <?= $linha['titulo'] ?>
         </a>
     </li>
     <?php endforeach; ?>
 </ul>
-
+<input type="hidden" value="<?= $idUsuario?>" id="idUser">
 </div>
 </body>
 </html>

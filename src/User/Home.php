@@ -14,10 +14,12 @@ class Home implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $_SESSION['logado'] = false;
+
         $html =  $this->renderizaHtml('home.php', [
             'titulo' => 'Home'
         ]);
 
-        return new Response(200, [], $html);
+        return new Response(200, ['Cache-Control'=>' no-cache'], $html);
     }
 }

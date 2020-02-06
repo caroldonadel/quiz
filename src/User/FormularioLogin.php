@@ -14,6 +14,8 @@ class FormularioLogin implements RequestHandlerInterface
 
      public function handle(ServerRequestInterface $request): ResponseInterface
      {
+         $_SESSION['logado'] = false;
+
          $html =  $this->renderizaHtml('users/formulario-login.php', [
              'titulo' => 'Login'
          ]);

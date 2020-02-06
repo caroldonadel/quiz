@@ -7,6 +7,7 @@ let idUsuarioQuiz = document.querySelector("#idUsuario").value;
 let listaPerguntas = document.querySelector("#listaPerguntas");
 let botaoAddPergunta = document.querySelector("#botaoAddPergunta");
 let numeroId = 1;
+let numeroNomeRadio = 1;
 let idPergunta;
 let alternativaNova;
 let  vddOuFalso;
@@ -176,12 +177,15 @@ let addNovaPergunta = function(){
     for(let i=0;i < botoesalternativas.length;i++){
         botoesalternativas[i].addEventListener("click", addNovaAlternativa);
     }
+
+    numeroNomeRadio++;
 };
 
 let addNovaAlternativa = function(){
 
     let divTodasAlternativas =  document.createElement("div");
-    divTodasAlternativas.className = "input-group mb-3";
+    // divTodasAlternativas.className = "input-group mb-3";
+    divTodasAlternativas.className = "input-group";
 
     let divInputGroup = document.createElement("div");
     divInputGroup.className = "input-group-prepend";
@@ -194,7 +198,7 @@ let addNovaAlternativa = function(){
     inputRadio.type = "radio";
     inputRadio.id = "inlineRadio" + numeroId;
     inputRadio.value = "option" + numeroId;
-    inputRadio.name = "inlineRadioOptions";
+    inputRadio.name = "inlineRadioOptions" + numeroNomeRadio;
 
     let inputAlternativa = document.createElement("input");
     inputAlternativa.type = "text";

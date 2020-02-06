@@ -22,8 +22,8 @@
             Voltar para login
         </a>
 
-        <a href="/quiz/public/home" class="btn btn-primary">
-            Home
-        </a>
+<!--        <a href="/quiz/public/home" class="btn btn-primary">-->
+<!--            Home-->
+<!--        </a>-->
      </span>
 </form>
