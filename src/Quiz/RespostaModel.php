@@ -7,25 +7,8 @@ use Quiz\Armazenamento\User\Model;
 
 class RespostaModel extends Model
 {
-//    private $idperguntas;
     private $idusuarios;
     private $idalternativas;
-
-    /**
-     * @return mixed
-     */
-    public function getIdperguntas()
-    {
-        return $this->idperguntas;
-    }
-
-    /**
-     * @param mixed $idperguntas
-     */
-    public function setIdperguntas($idperguntas)
-    {
-        $this->idperguntas = $idperguntas;
-    }
 
     /**
      * @return mixed
@@ -68,7 +51,8 @@ class RespostaModel extends Model
         $stmt->bindValue(':idalternativas', $this->idalternativas);
         $stmt->execute();
     }
-    public function carregar()
+
+    public function listar()
     {
         $query = "SELECT * FROM respostas WHERE idusuarios = :idusuarios";
         $conexao = self::pegarConexao();
@@ -79,6 +63,29 @@ class RespostaModel extends Model
 
         return $lista;
     }
+
+    public function carregar()
+    {
+        $query = "SELECT * FROM respostas WHERE idusuarios = :idusuarios AND idalternativas = :idalternativas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idusuarios', $this->idusuarios);
+        $stmt->bindValue(':idalternativas', $this->idalternativas);
+        $stmt->execute();
+        $resposta = $stmt->fetch();
+
+//        private $idusuarios;
+//        private $idalternativas;
+
+//        $this->idalternativas = $resposta['idalternativas'];
+        if ($resposta===false) {
+
+            return null;
+        }
+
+        return $resposta;
+    }
+
 
 
 }

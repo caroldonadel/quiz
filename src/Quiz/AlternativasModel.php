@@ -87,7 +87,7 @@ class AlternativasModel extends Model
         $stmt->execute();
     }
 
-    public function listar()
+    public function listarPorPergunta()
     {
         $query = "SELECT * FROM alternativas WHERE idperguntas = :idperguntas";
         $conexao = self::pegarConexao();
@@ -99,6 +99,17 @@ class AlternativasModel extends Model
         return $alternativas;
     }
 
+    public function listar()
+    {
+        $query = "SELECT * FROM alternativas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idperguntas', $this->idperguntas);
+        $stmt->execute();
+        $alternativas = $stmt->fetchAll();
+
+        return $alternativas;
+    }
     public function carregar()
     {
         $query = "SELECT * FROM alternativas WHERE idperguntas = :idperguntas AND correta = 1";

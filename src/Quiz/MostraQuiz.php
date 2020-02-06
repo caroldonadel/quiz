@@ -11,11 +11,11 @@ use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
 class MostraQuiz implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
+    private $foiRespondido = null;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $idQuiz = $request->getQueryParams()['id'];
-
         $idUser = $request->getQueryParams()['idUser'];
 
         $quiz = new QuizModel();
@@ -24,16 +24,34 @@ class MostraQuiz implements RequestHandlerInterface
 
         $perguntas = new PerguntasModel();
         $perguntas->setIdquiz($quiz->getIdQuizzes());
-        $lista = $perguntas->carregar();
+        $lista = $perguntas->carregar();//todas as perguntas do quiz
 
         $alternativas = new AlternativasModel();
         $alternativas->setIdperguntas($lista[0]['idperguntas']);
-        $listaAlternativas = $alternativas->listar();
+        $listaAlternativas = $alternativas->listarPorPergunta();//todas as alternativas da PRIMEIRA pergunta
 
-        $respostaExiste = new RespostaModel();
-        $respostaExiste = $respostaExiste->setIdusuarios($idUser);
+        foreach($listaAlternativas as $alternativa){
 
-        if(is_null($respostaExiste)) {
+            $respostaExiste = new RespostaModel();
+            $respostaExiste->setIdusuarios($idUser);
+            $respostaExiste->setIdalternativas($alternativa['idalternativas']);
+//          $existe = $respostaExiste->carregar();
+//          $respostaExiste->carregar();
+
+            if(!is_null($respostaExiste->carregar())){
+//            if($alternativa['idalternativas'] === $respostaExiste->getIdalternativas()){
+                $this->foiRespondido = "sim";
+                break;
+            }
+
+//            else{
+//                $this->foiRespondido = "nao";
+//                echo $this ->foiRespondido;
+//                break
+//            }
+        }
+
+        if(is_null($this->foiRespondido)) {
             $html = $this->renderizaHtml('quiz/mostra-quiz.php', [
                 'titulo' => $quiz->getTitulo(),
                 'idquiz' => $quiz->getIdQuizzes(),
@@ -44,7 +62,6 @@ class MostraQuiz implements RequestHandlerInterface
             return new Response(200, [], $html);
         }
          else{
-
             $_SESSION['idquiz'] = $idQuiz;
             $_SESSION['idUser'] = $idUser;
 

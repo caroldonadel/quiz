@@ -43,7 +43,7 @@ class ProximaPergunta implements RequestHandlerInterface
 
             $alternativas = new AlternativasModel();
             $alternativas->setIdperguntas($lista2[array_key_first($lista2)]['idperguntas']);
-            $listaAlternativas = $alternativas->listar();
+            $listaAlternativas = $alternativas->listarPorPergunta();
 
             $resposta = ['fim' => 'yes',
                         'titulo' => $quiz->getTitulo(),
@@ -58,7 +58,7 @@ class ProximaPergunta implements RequestHandlerInterface
 
             $alternativas = new AlternativasModel();
             $alternativas->setIdperguntas($lista[array_key_first($lista)]['idperguntas']);
-            $listaAlternativas = $alternativas->listar();
+            $listaAlternativas = $alternativas->listarPorPergunta();
 
             $resposta = ['fim' => 'no',
                         'titulo' => $quiz->getTitulo(),

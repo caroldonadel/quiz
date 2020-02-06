@@ -5,7 +5,7 @@
 
 <!--<div class="card border-info mb-3" >-->
 <!--    <div class="card-body">-->
-        <h2 class="card-title text-center""> <?= $listaPerguntas[0]['titulo'] ?>   </h2>
+        <h2 class="card-title text-center"> <?= $listaPerguntas[0]['titulo'] ?>   </h2>
 <!--    </div>-->
 <!--</div>-->
 <input type="hidden" value="<?= $listaPerguntas[0]['idperguntas']?>" id="idPergunta">

@@ -1,32 +1,32 @@
-<!--<h1> --><?//= var_dump($respostas) ?><!-- </h1>-->
-<h1> <?= var_dump($correta) ?> </h1>
+<?php include __DIR__ . '/../inicio-html.php'; ?>
 
-<h1> <?= var_dump($respostas) ?> </h1>
+<h1 class="card-title text-center"> <?= $tituloQuiz ?> </h1>
 
-<h1> <?= $titulo ?> </h1>
+<?php foreach ($perguntas as $pergunta) : ?>
+    <fieldset>
+    <h1 class="card-title"> <?= $pergunta['titulo']; ?>
+    <fieldset>
+        <ul>
+            <?php foreach($alternativas as $alternativa) : ?>
 
+                <?php if ($alternativa['idperguntas'] === $pergunta['idperguntas']) :
 
-<h1> <?= $tituloQuiz ?> </h1>
+                    if (array_key_exists("escolhida", $alternativa)) :?>
 
-<?php foreach ($perguntas as $pergunta) { ?>
-<fieldset>
-    <h1> <?= $pergunta['titulo']; ?>
-        <fieldset>
-            <ul>
-<!--php foreach na lista de alternativas-->
-<!--                if alternativa contem a key escolhida-->
-<!--                <li class=escolhida>descricao alternativa</li>-->
-<!--                else-->
-                <!--                <li class=escolhida>descricao alternativa</li>-->
+                        <li class="escolhida"><?= $alternativa['descricao'] ?></li>
 
+                    <?php else : ?>
 
+                        <li> <?= $alternativa['descricao'] ?></li>
+
+                <?php endif; ?>
+            <?php endif; ?>
+          <?php endforeach; ?>
             </ul>
-        </fieldset>
+    </fieldset>
 </fieldset>
-<?php } ?>
+<?php endforeach;?>
 
-<h1> <?php var_dump($alternativas); ?> </h1>
 
-        <!--'perguntas' => $perguntasQuiz,-->
-<!--'alternativas' =>$listaAlternativas-->
+
 
