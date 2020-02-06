@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Quiz\Armazenamento\Quiz;
 
 use Nyholm\Psr7\Response;
@@ -8,19 +9,18 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
 
-class CalculaResultado implements RequestHandlerInterface
+class CalculaResultadoExistente implements RequestHandlerInterface
 {
-
     use RenderizadorDeHtmlTrait;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $quiz = new QuizModel();
-        $idquiz = $request->getQueryParams()['idquiz'];
+        $idquiz =  $_SESSION['idquiz'];
         $quiz->setIdQuizzes($idquiz);
         $quiz->carregar();
 
-        $iduser = $request->getQueryParams()['iduser'];
+        $iduser = $_SESSION['idUser'];
 
         $perguntas = new PerguntasModel();
         $perguntas->setIdquiz($idquiz);
@@ -31,7 +31,6 @@ class CalculaResultado implements RequestHandlerInterface
         $respostas = $respostas->carregar();
 
         $listaAlternativas = [];
-        $listaCorretas = [];
 
         foreach ($perguntas as $pergunta) {  //CADA PERGUNTA DO QUIZ
             $idPergunta = $pergunta['idperguntas'];
@@ -58,7 +57,6 @@ class CalculaResultado implements RequestHandlerInterface
                     foreach ($lista as $alternativa) {
 
                         if ($alternativa['idalternativas'] === $resposta['idalternativas']) {
-                            echo "sao iguais";
                             $alternativa["escolhida"] = "1";
                         }
 //else{
@@ -69,6 +67,7 @@ class CalculaResultado implements RequestHandlerInterface
                 }
             }
         }
+
 
         $perguntasQuiz = new PerguntasModel();
         $perguntasQuiz->setIdquiz($idquiz);
@@ -87,5 +86,3 @@ class CalculaResultado implements RequestHandlerInterface
 
     }
 }
-
-

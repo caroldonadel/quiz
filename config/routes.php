@@ -9,6 +9,7 @@ use Quiz\Armazenamento\User\{
     Inicio,
     RealizarLogin};
 use Quiz\Armazenamento\Quiz\{CalculaResultado,
+    CalculaResultadoExistente,
     FormularioQuiz,
     MostraQuiz,
     MostraResultado,
@@ -38,6 +39,7 @@ return [
     '/quiz/public/proxima-pergunta' => ProximaPergunta::class,
     '/quiz/public/cadastra-respostas' => SalvarRespostas::class,
     '/quiz/public/resultado' => CalculaResultado::class,
-    '/quiz/public/mostra-resultado' => MostraResultado::class
+    '/quiz/public/mostra-resultado' => MostraResultado::class,
+    '/quiz/public/resultado-existe' => CalculaResultadoExistente::class
 ];
 

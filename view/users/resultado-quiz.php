@@ -1,9 +1,7 @@
 <!--<h1> --><?//= var_dump($respostas) ?><!-- </h1>-->
 <h1> <?= var_dump($correta) ?> </h1>
 
-
 <h1> <?= var_dump($respostas) ?> </h1>
-
 
 <h1> <?= $titulo ?> </h1>
 
@@ -28,7 +26,6 @@
 <?php } ?>
 
 <h1> <?php var_dump($alternativas); ?> </h1>
-
 
         <!--'perguntas' => $perguntasQuiz,-->
 <!--'alternativas' =>$listaAlternativas-->

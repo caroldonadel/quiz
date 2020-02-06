@@ -30,14 +30,25 @@ class MostraQuiz implements RequestHandlerInterface
         $alternativas->setIdperguntas($lista[0]['idperguntas']);
         $listaAlternativas = $alternativas->listar();
 
-        $html =  $this->renderizaHtml('quiz/mostra-quiz.php', [
-            'titulo' => $quiz->getTitulo(),
-            'idquiz' => $quiz->getIdQuizzes(),
-            'idUser' => $idUser,
-            'listaPerguntas' => $lista,
-            'listaAlternativas' => $listaAlternativas
-        ]);
+        $respostaExiste = new RespostaModel();
+        $respostaExiste = $respostaExiste->setIdusuarios($idUser);
 
-        return new Response(200, [], $html);
+        if(is_null($respostaExiste)) {
+            $html = $this->renderizaHtml('quiz/mostra-quiz.php', [
+                'titulo' => $quiz->getTitulo(),
+                'idquiz' => $quiz->getIdQuizzes(),
+                'idUser' => $idUser,
+                'listaPerguntas' => $lista,
+                'listaAlternativas' => $listaAlternativas
+            ]);
+            return new Response(200, [], $html);
+        }
+         else{
+
+            $_SESSION['idquiz'] = $idQuiz;
+            $_SESSION['idUser'] = $idUser;
+
+            return new Response(200, ['Location'=> '/quiz/public/resultado-existe']);
+         }
     }
 }
