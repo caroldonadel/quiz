@@ -12,8 +12,11 @@ class CalculaResultado implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
 
+    private bool $ehIgual;
+
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+
         $quiz = new QuizModel();
         $idquiz = $request->getQueryParams()['idquiz'];
         $quiz->setIdQuizzes($idquiz);
@@ -30,68 +33,61 @@ class CalculaResultado implements RequestHandlerInterface
         $respostas = $respostas->listar();
 
         $listaAlternativas = [];
-//        $listaCorretas = [];
 
-        foreach ($perguntas as $pergunta) {  //CADA PERGUNTA DO QUIZ
-            $idPergunta = $pergunta['idperguntas'];
+        foreach ($perguntas as $pergunta) {             //PARA CADA PERGUNTA DO QUIZ
+
+            echo "pergunta do quiz";
+            echo "<br>";
+            $idPergunta = $pergunta['idperguntas'];                                // PEGA O ID DA PERGUNTA
 
             $alternativaCorreta = new AlternativasModel();
-            $alternativaCorreta->setIdperguntas($idPergunta);
-
-            array_push($listaAlternativas, ($alternativaCorreta->listarPorPergunta()));
+            $alternativaCorreta->setIdperguntas($idPergunta);//
+            array_push($listaAlternativas, ($alternativaCorreta->listarPorPergunta())); //LISTA DE ALTERNATIVAS PARA A PERGUNTA DA VEZ
+            //
             $lista = [];
 
             foreach ($listaAlternativas as $item) {
                 if (is_array($item)) {
-                    $lista = array_merge($lista, $item); //lista = todas alternativas de cada pergunta
+                    $lista = array_merge($lista, $item); //LISTA DE ALTERNATIVAS PARA A PERGUNTA DA VEZ
                 }
             }
 
-            $alternativaCorreta->carregar(); //SOMENTE A ALT CORRETA DE CADA RESPOSTA
+            $alternativaCorreta->carregarSomenteACorreta(); //SOMENTE A ALT CORRETA DA PERGUNTA DA VEZ (CARREGA SO CORRETA=1)
             $idCorreta = $alternativaCorreta->getIdalternativas();
+
+            echo "idcorreta " . $idCorreta;
+            echo "<br>";
 
             foreach ($respostas as $resposta) { //CADA RESPOSTA DO USER
 
-//                if ($resposta['idalternativas'] === $idCorreta)
+                if ($resposta['idalternativas'] === $idCorreta) {
+                    $this->ehIgual = true;
+                } else {
+                    $this->ehIgual = false;
+                }
+                echo "id resposta " . $resposta['idalternativas'] . 'iguais ' . $this->ehIgual;
+                echo "<br>";
 
-                    foreach ($lista as &$alternativa) { //pra todas as alternativas da pergunta
+                foreach ($lista as &$alternativa) { //pra todas as alternativas da pergunta
 
-                        if ($alternativa['idalternativas'] === $resposta['idalternativas'])  { //se a resposta tem a id da id correta
+                    echo $alternativa['idalternativas'];
+                    echo "<br>";
+                    if ($resposta['idalternativas'] === $idCorreta) { //SE A RESPOSTA TEM O MESMO ID DA ALT CORRETA DA PERGUNTA DA VEZ
 
-                            echo "sao iguais";
+                        if ($alternativa['idalternativas'] === $resposta['idalternativas'] && $this->ehIgual) { //se a ALTERNATIVA tem o id da correta
                             $alternativa['escolhida'] = '1';
-
-    //                        }else{
-    //
-    //                        }
-//                              if($alternativa['correta']==="1"){
-//                                  $alternativa['corretaNaoEscolhida'] = '1';
-//                              }
-
-                    }
-//                }
-            }
-//            foreach ($respostas as $resposta) { //CADA RESPOSTA DO USER
-//
-//                if ($resposta['idalternativas'] === $idCorreta) {
-//
-//                    foreach ($lista as &$alternativa) {
-//
-//                        if ($alternativa['idalternativas'] === $resposta['idalternativas']) {
-////                            echo "teste";
-//                            $alternativa['escolhida'] = "1";
-////                            $lista->escolhida = '1';
+                            break;
+                        }
+//                        elseif ($alternativa['idalternativas'] === $resposta['idalternativas'] && $this->ehIgual===false) {
+//                            $alternativa['errada'] = '1';
 //                        }
-////else{
-////
-////
-////                        }
-//                    }
-//                }
-//            }
-
-
+                    }
+                }
+            }
         }
+
+        var_dump($lista);
+
 
         $perguntasQuiz = new PerguntasModel();
         $perguntasQuiz->setIdquiz($idquiz);

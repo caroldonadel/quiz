@@ -7,7 +7,9 @@
     <h1 class="card-title"> <?= $pergunta['titulo']; ?>
     <fieldset>
         <ul>
-            <?php foreach($alternativas as $alternativa) : ?>
+            <?php
+
+            foreach($pergunta['listaDeAlternativas'] as $alternativa) : ?>
 
                 <?php if ($alternativa['idperguntas'] === $pergunta['idperguntas']) :
 
@@ -22,7 +24,7 @@
                 <?php endif; ?>
             <?php endif; ?>
           <?php endforeach; ?>
-            </ul>
+        </ul>
     </fieldset>
 </fieldset>
 <?php endforeach;?>

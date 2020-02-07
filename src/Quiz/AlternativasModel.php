@@ -110,7 +110,7 @@ class AlternativasModel extends Model
 
         return $alternativas;
     }
-    public function carregar()
+    public function carregarSomenteACorreta()
     {
         $query = "SELECT * FROM alternativas WHERE idperguntas = :idperguntas AND correta = 1";
         $conexao = self::pegarConexao();

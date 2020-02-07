@@ -85,7 +85,4 @@ class RespostaModel extends Model
 
         return $resposta;
     }
-
-
-
 }
