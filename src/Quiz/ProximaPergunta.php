@@ -11,20 +11,19 @@ use Quiz\Armazenamento\Helper\RenderizadorDeHtmlTrait;
 class ProximaPergunta implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
-//    private static $indice = 0;
-//    static $lista;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $json = file_get_contents('php://input');
         $jsonPayload = json_decode($json);
 
-        $id = $jsonPayload->id;
+        $idQuiz = $jsonPayload->id;
         $indice= $jsonPayload->indice;
 
         $quiz = new QuizModel();
-        $quiz->setIdQuizzes($id);
+        $quiz->setIdQuizzes($idQuiz);
         $quiz->carregar();
+
 
         $perguntas = new PerguntasModel();
         $perguntas->setIdquiz($quiz->getIdQuizzes());

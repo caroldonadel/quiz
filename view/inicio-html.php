@@ -10,9 +10,6 @@
 <?php if (($_SESSION['logado']===true)): ?>
     <nav class="navbar navbar-dark bg-dark mb-2">
         <ul class="nav justify-content-center">
-            <li class="nav-item active">
-                <a class="navbar-brand" href="/quiz/public/home">Home</a>
-            </li>
 
             <li class="nav-item active">
                 <a class="navbar-brand" href="/quiz/public/inicio">Início</a>
@@ -21,6 +18,7 @@
             <li class="nav-item active">
                 <a class="navbar-brand" href="/quiz/public/logout">Sair</a>
             </li>
+
         </ul>
     </nav>
 <?php endif; ?>

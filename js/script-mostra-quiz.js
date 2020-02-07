@@ -10,10 +10,17 @@ let botaoResultado = document.querySelector("#botaoResultado");
 // let radios2 = document.querySelectorAll(".alternativa");
 let radios2 = document.querySelectorAll("button[name]");
 let idAlt;
+let quizRespondido = document.querySelectorAll("#quiz-respondido");;
 
 console.log(radios2);
 
 let carregaProximaPergunta = function() {
+
+    let alerta = confirm("Você não respondeu a pergunta!");
+
+    if (alerta == true) {
+        list.removeChild(listItem);
+    }
 
     let idQuizAtual = {id: idQuiz.value, indice: indiceListaPerguntas};
 
@@ -111,6 +118,7 @@ let checkRadioButton = function (event,botoes) {
     }else {
         elementoAtivo.className = "list-group-item list-group-item-action active";
         idAlt = elementoAtivo.id;
+        quizRespondido.innerHTML = "respondido";
 
         for(let i=0; i < botoes.length; i++){
             if(botoes[i].id !== idAlt)
@@ -124,12 +132,6 @@ let checkRadioButton = function (event,botoes) {
 
 let salvaRespostaAjax = function() {
 
-    // for(let i=0; i < radios2.length;i++){
-    //
-    //     if(radios2[i].classList.contains("check")){
-    //         idAlt = radios2[i].id;
-    //     }
-    // }
     idPergunta = document.querySelector("#idPergunta").value;
     let resposta = {iduser: idUser.value, idResp: idAlt};
 
@@ -149,4 +151,5 @@ for(let i = 0; i < radios2.length; i++){
 }
 botaoProxima.addEventListener("click", carregaProximaPergunta);
 botaoProxima.addEventListener("click", salvaRespostaAjax);
+
 ';

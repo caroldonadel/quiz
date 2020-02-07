@@ -2,6 +2,7 @@
 <div id="conteudo">
 <input type="hidden" value="<?= $idquiz?>" id="idQuiz">
 <input type="hidden" value="<?= $idUser?>" id="idUser">
+<input type="hidden" value="nao-respondido" id="quiz-respondido">
 
 
         <h2 class="card-title text-center"> <?= $listaPerguntas[0]['titulo'] ?>   </h2>
