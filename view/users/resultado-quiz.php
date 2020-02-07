@@ -7,23 +7,18 @@
     <h1 class="card-title"> <?= $pergunta['titulo']; ?>
     <fieldset>
         <ul>
-            <?php
+            <?php foreach($pergunta['listaDeAlternativas'] as $alternativa) : ?>
+                <?php if (array_key_exists("respostaCerta", $alternativa)) {
+                    ?>
 
-            foreach($pergunta['listaDeAlternativas'] as $alternativa) : ?>
+                        <li class="respostaCerta"><?= $alternativa['descricao'] ?></li>
+                <?php }
+                elseif(array_key_exists("escolhidaErrada", $alternativa)) { ?>
 
-                <?php if ($alternativa['idperguntas'] === $pergunta['idperguntas']) :
+                        <li class="escolhidaerrada"> <?= $alternativa['descricao'] ?></li>
+                <?php }
 
-                    if (array_key_exists("escolhida", $alternativa)) :?>
-
-                        <li class="escolhida"><?= $alternativa['descricao'] ?></li>
-
-                    <?php else : ?>
-
-                        <li> <?= $alternativa['descricao'] ?></li>
-
-                <?php endif; ?>
-            <?php endif; ?>
-          <?php endforeach; ?>
+            endforeach; ?>
         </ul>
     </fieldset>
 </fieldset>

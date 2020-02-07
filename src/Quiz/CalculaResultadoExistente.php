@@ -40,6 +40,9 @@ class CalculaResultadoExistente implements RequestHandlerInterface
 
             $this->errada=false;
 
+            echo $this->errada;
+            echo "<br>";
+
             $idPergunta = $pergunta['idperguntas'];                                // PEGA O ID DA PERGUNTA
 
             $alternativaCorreta = new AlternativasModel();
@@ -60,6 +63,7 @@ class CalculaResultadoExistente implements RequestHandlerInterface
             echo "<br>";
 
             foreach ($respostas as $resposta) { //CADA RESPOSTA DO USER
+
 
                 if($this->errada===true){
                     continue;
@@ -88,16 +92,22 @@ class CalculaResultadoExistente implements RequestHandlerInterface
                         echo 'verde';
                         echo "<br>";
 
-                        $alternativa['escolhida'] = 1;
+                        $alternativa['respostaCerta'] = 1;
 
-                    }elseif(($alternativa['idalternativas']<>$resposta['idalternativas']) && $this->ehIgual) {
+                    }elseif(($alternativa['idalternativas']<>$resposta['idalternativas']) && !$this->ehIgual) {
+
                         echo 'vermelha';
                         echo "<br>";
 
                         $alternativa['escolhidaErrada'] = 1;
                         $this->errada = true;
 
+                        echo $this->errada;
+                        echo "<br>";
+
+
                     }
+
                     echo $alternativa['idalternativas'];
                     echo "<br>";
                 }
