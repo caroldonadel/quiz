@@ -32,38 +32,36 @@ class CalculaResultadoExistente implements RequestHandlerInterface
         $respostas->setIdusuarios($iduser);
         $respostas = $respostas->listar();
 
-        $listaAlternativas = [];//tem que ficar aqui pra listar as alt de todas as perguntas
+        $listaAlternativas = [];
 
-        foreach ($perguntas as &$pergunta) {             //PARA CADA PERGUNTA DO QUIZ
-            echo "loop da pergunta da vez";
-            echo "<br>";
+        foreach ($perguntas as &$pergunta) {
+
+//            echo 'pergunta';
+//            echo '<br>';
 
             $this->errada=false;
-
-            echo $this->errada;
-            echo "<br>";
-
-            $idPergunta = $pergunta['idperguntas'];                                // PEGA O ID DA PERGUNTA
-
+            $idPergunta = $pergunta['idperguntas'];
             $alternativaCorreta = new AlternativasModel();
             $alternativaCorreta->setIdperguntas($idPergunta);//
-            array_push($listaAlternativas, ($alternativaCorreta->listarPorPergunta())); //LISTA DE ALTERNATIVAS PARA A PERGUNTA DA VEZ
+            array_push($listaAlternativas, ($alternativaCorreta->listarPorPergunta()));
             $listaAlternativasMerge = [];
 
             foreach ($listaAlternativas as $item) {
                 if (is_array($item)) {
-                    $listaAlternativasMerge = array_merge($listaAlternativasMerge, $item); //LISTA DE ALTERNATIVAS PARA A PERGUNTA DA VEZ
+                    $listaAlternativasMerge = array_merge($listaAlternativasMerge, $item);
                 }
             }
 
-            $alternativaCorreta->carregarSomenteACorreta(); //SOMENTE A ALT CORRETA DA PERGUNTA DA VEZ (CARREGA SO CORRETA=1)
+            $alternativaCorreta->carregarSomenteACorreta();
             $idCorreta = $alternativaCorreta->getIdalternativas();
 
-            echo $idCorreta;
-            echo "<br>";
+//            echo 'idcorreta' . $idCorreta;
+//            echo '<br>';
 
-            foreach ($respostas as $resposta) { //CADA RESPOSTA DO USER
+            foreach ($respostas as $resposta) {
 
+//                echo "idresposta " . $resposta['idalternativas'];
+//                echo '<br>';
 
                 if($this->errada===true){
                     continue;
@@ -75,79 +73,53 @@ class CalculaResultadoExistente implements RequestHandlerInterface
                     $this->ehIgual = false;
                 }
 
-                echo "loop da resposta da vez";
-                echo "<br>";
-                echo $this->ehIgual;
-                echo "<br>";
-                echo $resposta['idalternativas'];
-                echo "<br>";
-                echo "<br>";
+//                echo $this->ehIgual;
 
-                foreach ($listaAlternativasMerge as &$alternativa) { //pra todas as alternativas da pergunta
+                foreach ($listaAlternativasMerge as &$alternativa) {
 
-                    if($alternativa['idalternativas'] === $idCorreta
-                    || ($alternativa['idalternativas']===$idCorreta
-                    && $alternativa['idalternativas']===$resposta['idalternativas'])){
+//                    echo "idalternativa" . $alternativa['idalternativas'];
+//                    echo '<br>';
 
-                        echo 'verde';
-                        echo "<br>";
-
-                        $alternativa['respostaCerta'] = 1;
-
-                    }elseif(($alternativa['idalternativas']<>$resposta['idalternativas']) && !$this->ehIgual) {
-
-                        echo 'vermelha';
-                        echo "<br>";
+                    if(($alternativa['idalternativas']===$resposta['idalternativas']) &&
+                        ($resposta['idalternativas']<>$idCorreta)) {
+//                    if(($alternativa['idalternativas']===$resposta['idalternativas']) && $this->ehIgual===false) {
 
                         $alternativa['escolhidaErrada'] = 1;
                         $this->errada = true;
+//                        echo 'errada';
+//                        echo '<br>';
 
-                        echo $this->errada;
-                        echo "<br>";
+                    }elseif($alternativa['idalternativas'] === $idCorreta
+                        || ($alternativa['idalternativas']===$idCorreta
+                            && $alternativa['idalternativas']===$resposta['idalternativas'])){
 
+                        $alternativa['respostaCerta'] = 1;
+//                        echo 'correta';
+//                        echo '<br>';
 
                     }
+//                    elseif(($alternativa['idalternativas']<>$resposta['idalternativas']) && !$this->ehIgual) {
+//
+//                        $alternativa['naoFoiEscolhida'] = 1;
+//                        $this->errada = true;
+//                    }
 
-                    echo $alternativa['idalternativas'];
-                    echo "<br>";
+//                    echo $this->errada;
                 }
+//                echo '<br>';
+//                echo '<br>';
             }
             $pergunta['listaDeAlternativas'] = $listaAlternativasMerge;
-            var_dump($pergunta);
-
             $listaAlternativas = [];
+         }
 
-        }
-
-
-//    if ($resposta['idalternativas'] === $idCorreta){ //SE A RESPOSTA TEM O MESMO ID DA ALT CORRETA DA PERGUNTA DA VEZ
-//
-//        foreach ($listaAlternativasMerge as &$alternativa) { //pra todas as alternativas da pergunta
-//
-//        if ($alternativa['idalternativas'] === $resposta['idalternativas']) { //se a ALTERNATIVA tem o id da correta
-//
-//        echo "sao iguais";
-//        $alternativa['escolhida'] = '1';
-//
-//        }else{
-//         $alternativa['errada'] = '1'; //a alt nao tem a msm id
-//
-// }
-// }
-// }
-
-//        $listaAlt = $alternativaCorreta->listar();
-//        var_dump($listaAlternativasMerge);
-
-        $perguntasQuiz = new PerguntasModel();
-        $perguntasQuiz->setIdquiz($idquiz);
-        $perguntasQuiz = $perguntasQuiz->carregar();
+//        $perguntasQuiz = new PerguntasModel();
+//        $perguntasQuiz->setIdquiz($idquiz);
+//        $perguntasQuiz = $perguntasQuiz->carregar();
 
         $html = $this->renderizaHtml('users/resultado-quiz.php', [
-            'titulo' => "Resultado",
-            'tituloQuiz' => $quiz->getTitulo(),
+            'titulo' => $quiz->getTitulo(),
             'perguntas' => $perguntas,
-            'alternativas' => $listaAlternativasMerge,
             'respostas' => $respostas,
             'correta' => $alternativaCorreta
         ]);

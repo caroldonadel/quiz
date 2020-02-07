@@ -1,15 +1,17 @@
 <?php
     echo
 '
-
 let botaoProxima = document.querySelector("#botaoProxima");
 let idQuiz = document.querySelector("#idQuiz");
 let idUser = document.querySelector("#idUser");
 let indiceListaPerguntas=1;
 let divConteudo = document.querySelector("#conteudo");
 let botaoResultado = document.querySelector("#botaoResultado");
-let radios2 = document.querySelectorAll(".alternativa");
+// let radios2 = document.querySelectorAll(".alternativa");
+let radios2 = document.querySelectorAll("button[name]");
 let idAlt;
+
+console.log(radios2);
 
 let carregaProximaPergunta = function() {
 
@@ -67,19 +69,22 @@ let carregaProximaPergunta = function() {
                     let liAlternativa = document.createElement("button");
                     liAlternativa.type = "button";
                     liAlternativa.innerText = dadosQuiz["listaAlternativas"][i]["descricao"];
-                    liAlternativa.className = "list-group-item list-group-item-action alternativa";
+                    liAlternativa.className = "list-group-item list-group-item-action";
                     liAlternativa.id = dadosQuiz["listaAlternativas"][i]["idalternativas"];
+                    liAlternativa.name = "alternativa";
 
                     // lista.appendChild(radioAlternativa);
                     lista.appendChild(liAlternativa);
                 }
 
-                let radios = document.querySelectorAll(".alternativa");
+                let radios = document.querySelectorAll("button[name]");
+                // let radios = document.querySelectorAll(".alternativa");
                 console.log(radios);
 
                 for(let i = 0; i < radios.length; i++){
-                    radios[i].addEventListener("click", checkRadioButton);
-
+                    radios[i].addEventListener("click",function(event){
+                        checkRadioButton(event, radios);
+                    } );
                 }
 
                 // for(let i = 0; i < radios.length; i++){
@@ -96,17 +101,24 @@ let carregaProximaPergunta = function() {
 
 };
 
-let checkRadioButton = function (event) {
+let checkRadioButton = function (event,botoes) {
+
     let elementoAtivo = event.currentTarget;
     console.log(elementoAtivo);
 
     if(elementoAtivo.classList.contains("active")){
-        console.log("possui a classe");
-        elementoAtivo.className = "list-group-item list-group-item-action alternativa";
-        console.log(idAlt.value);
+        elementoAtivo.className = "list-group-item list-group-item-action ";
     }else {
-        elementoAtivo.className = "list-group-item list-group-item-action alternativa active";
+        elementoAtivo.className = "list-group-item list-group-item-action active";
         idAlt = elementoAtivo.id;
+
+        for(let i=0; i < botoes.length; i++){
+            if(botoes[i].id !== idAlt)
+            {
+                console.log("botoes[i]");
+                botoes[i].className = "list-group-item list-group-item-action disabled";
+            }
+        }
     }
 };
 
@@ -130,9 +142,10 @@ let salvaRespostaAjax = function() {
        xhr.send(JSON.stringify(resposta));
 };
 
-console.log(radios2);
 for(let i = 0; i < radios2.length; i++){
-    radios2[i].addEventListener("click", checkRadioButton);
+    radios2[i].addEventListener("click",function(event){
+        checkRadioButton(event, radios2);
+    } );
 }
 botaoProxima.addEventListener("click", carregaProximaPergunta);
 botaoProxima.addEventListener("click", salvaRespostaAjax);

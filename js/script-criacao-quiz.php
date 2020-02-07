@@ -184,8 +184,8 @@ let addNovaPergunta = function(){
 let addNovaAlternativa = function(){
 
     let divTodasAlternativas =  document.createElement("div");
-    // divTodasAlternativas.className = "input-group mb-3";
-    divTodasAlternativas.className = "input-group";
+     divTodasAlternativas.className = "input-group mb-3";
+//    divTodasAlternativas.className = "input-group";
 
     let divInputGroup = document.createElement("div");
     divInputGroup.className = "input-group-prepend";
