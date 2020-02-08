@@ -15,6 +15,12 @@ let  vddOuFalso;
 
 let addQuizAjax = function() {
     let quiz = {titulo: tituloNovoQuiz.value, idusuario: idUsuarioQuiz};
+    //conferir se titulo do quiz esta sem value
+    // chama lista de perguntas pra ca e conferir se estao sem value em um for
+    //em addperguntasAjax sao listas as alternativas
+    //no controller de salvarquiz carregar um quiz primeiro, se retornar null dai salva os dados enviados no request
+    //pq nao vai ser possivel checar aqui se as alternativas estao vazias
+    //entao o botao de salvar quiz vai ter que ser usado mais de uma vez
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/quiz/public/cadastra-quiz");
