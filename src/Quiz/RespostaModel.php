@@ -85,4 +85,13 @@ class RespostaModel extends Model
 
         return $resposta;
     }
+
+    public function excluir()
+    {
+        $query = "DELETE FROM respostas WHERE idalternativas = :idalternativas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idalternativas', $this->idalternativas);
+        $stmt->execute();
+    }
 }

@@ -15,19 +15,31 @@ class SalvarPerguntas implements RequestHandlerInterface
         $perguntas = json_decode($json, true);
         $perguntaEid = [];
 
-
-        foreach ($perguntas["perguntas"] as $tituloPergunta){
+        foreach ($perguntas["perguntas"] as $tituloPergunta) {
             $pergunta = new PerguntasModel();
-            $pergunta->setTitulo($tituloPergunta);
+            $titulo = $tituloPergunta;
             $idquiz = $perguntas["idquiz"];
-            $pergunta->setIdquiz($idquiz);
 
-            $pergunta->inserir();
+            $pergunta->lastId();
+//            echo $pergunta->getIdperguntas();
+//            echo $titulo;
+            $pergunta->carregar();
 
-            $perguntaEidLoop = [$pergunta->getTitulo(), $pergunta->getIdperguntas()];
-            array_push($perguntaEid, $perguntaEidLoop);
-    }
-//        return new Response(200, [], $pergunta->getIdperguntas());
-        return new Response(200, [], json_encode($perguntaEid));
+            if ($pergunta->getTitulo() !== $titulo) {
+                $pergunta->setTitulo($tituloPergunta);
+                $pergunta->setIdquiz($idquiz);
+                $pergunta->inserir();
+
+                $perguntaEidLoop = [$pergunta->getTitulo(), $pergunta->getIdperguntas()];
+                array_push($perguntaEid, $perguntaEidLoop);
+            }
+        }
+
+        if(!is_null($perguntaEid)){
+            return new Response(200, [], json_encode($perguntaEid));
+
+        }else{
+            return new Response(200, []);
+        }
     }
 }

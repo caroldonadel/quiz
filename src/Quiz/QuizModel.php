@@ -97,4 +97,17 @@ private $idUsuarios;
             $this->idUsuarios = $quiz['idusuarios'];
         }
     }
+
+    public function excluir()
+    {
+        echo 'metodo chamado';
+        $query = "DELETE FROM quizzes WHERE idquizzes = :idquizzes";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        echo $this->idQuizzes;
+        $stmt->bindValue(':idquizzes', $this->idQuizzes);
+        $stmt->execute();
+    }
+
+
 }

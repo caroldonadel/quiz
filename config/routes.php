@@ -10,6 +10,7 @@ use Quiz\Armazenamento\User\{
     RealizarLogin};
 use Quiz\Armazenamento\Quiz\{CalculaResultado,
     CalculaResultadoExistente,
+    DeletaQuiz,
     FormularioQuiz,
     MostraQuiz,
     MostraResultado,
@@ -40,6 +41,7 @@ return [
     '/quiz/public/cadastra-respostas' => SalvarRespostas::class,
     '/quiz/public/resultado' => CalculaResultado::class,
     '/quiz/public/mostra-resultado' => MostraResultado::class,
-    '/quiz/public/resultado-existe' => CalculaResultadoExistente::class
+    '/quiz/public/resultado-existe' => CalculaResultadoExistente::class,
+    '/quiz/public/exclui-quiz' => DeletaQuiz::class
 ];
 

@@ -27,8 +27,8 @@ class ProximaPergunta implements RequestHandlerInterface
 
         $perguntas = new PerguntasModel();
         $perguntas->setIdquiz($quiz->getIdQuizzes());
-        $lista = $perguntas->carregar();
-        $lista2 = $perguntas->carregar();
+        $lista = $perguntas->listar();
+        $lista2 = $perguntas->listar();
 
 
 //        echo $indice;

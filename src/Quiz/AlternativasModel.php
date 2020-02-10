@@ -119,10 +119,20 @@ class AlternativasModel extends Model
         $stmt->execute();
         $alternativa = $stmt->fetch();
 
-         if (!$alternativa===false) {
+        if (!$alternativa === false) {
             $this->descricao = $alternativa['descricao'];
             $this->idalternativas = $alternativa['idalternativas'];
             $this->correta = $alternativa['correta'];
         }
     }
+
+        public function excluir()
+    {
+        $query = "DELETE FROM respostas WHERE idperguntas = :idperguntas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idperguntas', $this->idperguntas);
+        $stmt->execute();
+    }
+
 }

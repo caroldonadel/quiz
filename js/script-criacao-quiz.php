@@ -88,7 +88,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
     }
 
     let perguntasNovas = {idquiz: idQuizAdicionado, perguntas:perguntas};
-
+    console.log(perguntasNovas);
     if (campoVazioAlternativas===true){
 
         alert("Você não definiu o quiz!");
@@ -147,6 +147,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
                     alert("Você não definiu o quiz!");
                     radioCheck=false;
                 }else{
+                    console.log(alternativasPraAdicionar);
                     addAlternativasAjax(alternativasPraAdicionar);
                 }
             }
@@ -157,6 +158,8 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 };
 
 let addAlternativasAjax = function(alternativas) {
+
+
 
     for(let i=0; i < alternativas.length; i++ ) {
 

@@ -24,7 +24,7 @@ class MostraQuiz implements RequestHandlerInterface
 
         $perguntas = new PerguntasModel();
         $perguntas->setIdquiz($quiz->getIdQuizzes());
-        $lista = $perguntas->carregar();//todas as perguntas do quiz
+        $lista = $perguntas->listar();//todas as perguntas do quiz
 
         $alternativas = new AlternativasModel();
         $alternativas->setIdperguntas($lista[0]['idperguntas']);

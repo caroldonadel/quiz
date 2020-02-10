@@ -21,14 +21,14 @@ class SalvarQuiz implements RequestHandlerInterface
 
         if($quiz->getTitulo()!==$titulo){
 
-        $quiz->setTitulo($titulo);
-        $quiz->setIdUsuarios($idusuario);
-        $quiz->inserir();
+            $quiz->setTitulo($titulo);
+            $quiz->setIdUsuarios($idusuario);
+            $quiz->inserir();
 
             return new Response(200, [], $quiz->getIdQuizzes());
 
         }else
 
-        return new Response(200, []);
-    }
+            return new Response(200, []);
+        }
 }

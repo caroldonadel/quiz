@@ -17,6 +17,15 @@
         <a href="/quiz/public/quiz?id=<?= $linha['idquizzes'] ?>&idUser=<?= $idUsuario ?>" class="btn btn-primary btn-lg btn-block">
             <?= $linha['titulo'] ?>
         </a>
+        <?php if($nivel === 'admin') { ?>
+            <a href="/quiz/public/exclui-quiz?id=<?=$linha['idquizzes']?>" class="btn btn-secondary  ">
+                Deletar Quiz
+            </a>
+        <?php }else{ ?>
+            <a href="/quiz/public/exclui-quiz?id=<?=$linha['idquizzes']?>" class="btn btn-secondary btn-lg btn-block" disabled="">
+                Deletar Quiz
+            </a>
+        <?php  } ?>
     </li>
     <?php endforeach; ?>
 </ul>

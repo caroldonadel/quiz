@@ -26,7 +26,7 @@ class CalculaResultadoExistente implements RequestHandlerInterface
 
         $perguntas = new PerguntasModel();
         $perguntas->setIdquiz($idquiz);
-        $perguntas = $perguntas->carregar();
+        $perguntas = $perguntas->listar();
 
         $respostas = new RespostaModel();
         $respostas->setIdusuarios($iduser);

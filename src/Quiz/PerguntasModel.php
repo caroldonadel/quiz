@@ -16,7 +16,7 @@ class PerguntasModel extends Model
      */
     public function getIdquiz()
     {
-        return $this->$idquizzes;
+        return $this->idquizzes;
     }
 
     /**
@@ -67,14 +67,17 @@ class PerguntasModel extends Model
         $stmt->bindValue(':titulo', $this->titulo);
         $stmt->bindValue(':idquiz', $this->idquizzes);
         $stmt->execute();
+    }
 
+    public function lastId(){
         $query = "SELECT LAST_INSERT_ID() as last_id";
+        $conexao = self::pegarConexao();
         $stmt = $conexao->query($query);
         $id = $stmt->fetch();
         $this->idperguntas = $id[0];
     }
 
-    public function carregar()
+    public function listar()
     {
         $query = "SELECT * FROM perguntas WHERE idquizzes = :idquiz";
         $conexao = self::pegarConexao();
@@ -84,5 +87,28 @@ class PerguntasModel extends Model
         $lista = $stmt->fetchAll();
 
         return $lista;
+    }
+
+    public function carregar()
+    {
+        $query = "SELECT * FROM perguntas WHERE idperguntas = :idperguntas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idperguntas', $this->idperguntas);
+        $stmt->execute();
+        $pergunta = $stmt->fetch();
+
+        if (!$pergunta===false) {
+            $this->titulo = $pergunta['titulo'];
+        }
+    }
+
+    public function excluir()
+    {
+        $query = "DELETE FROM perguntas WHERE idquizzes = :idquizzes";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idquizzes', $this->idquizzes);
+        $stmt->execute();
     }
 }
