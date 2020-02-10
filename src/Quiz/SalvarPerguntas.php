@@ -20,15 +20,13 @@ class SalvarPerguntas implements RequestHandlerInterface
             $titulo = $tituloPergunta;
             $idquiz = $perguntas["idquiz"];
 
-            $pergunta->lastId();
-//            echo $pergunta->getIdperguntas();
-//            echo $titulo;
+            $pergunta->lastId(); //define idperguntas
             $pergunta->carregar();
 
             if ($pergunta->getTitulo() !== $titulo) {
                 $pergunta->setTitulo($tituloPergunta);
                 $pergunta->setIdquiz($idquiz);
-                $pergunta->inserir();
+                $pergunta->inserir(); //redefine o idperguntas pra enviar corretamente pro JS
 
                 $perguntaEidLoop = [$pergunta->getTitulo(), $pergunta->getIdperguntas()];
                 array_push($perguntaEid, $perguntaEidLoop);

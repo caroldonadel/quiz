@@ -8,9 +8,11 @@ use Quiz\Armazenamento\User\{
     FormularioLogin,
     Inicio,
     RealizarLogin};
-use Quiz\Armazenamento\Quiz\{CalculaResultado,
+use Quiz\Armazenamento\Quiz\{
+    CalculaResultado,
     CalculaResultadoExistente,
     DeletaQuiz,
+    FormularioEdicao,
     FormularioQuiz,
     MostraQuiz,
     MostraResultado,
@@ -19,6 +21,7 @@ use Quiz\Armazenamento\Quiz\{CalculaResultado,
     SalvarPerguntas,
     SalvarQuiz,
     SalvarRespostas};
+use Quiz\Armazenamento\Helper\AbreScriptEditaQuiz;
 use Quiz\Armazenamento\Helper\AbreScriptMostraQuiz;
 use Quiz\Armazenamento\Helper\AbreScriptNovoQuiz;
 
@@ -42,6 +45,8 @@ return [
     '/quiz/public/resultado' => CalculaResultado::class,
     '/quiz/public/mostra-resultado' => MostraResultado::class,
     '/quiz/public/resultado-existe' => CalculaResultadoExistente::class,
-    '/quiz/public/exclui-quiz' => DeletaQuiz::class
+    '/quiz/public/exclui-quiz' => DeletaQuiz::class,
+    '/quiz/public/edita-quiz' => FormularioEdicao::class,
+    '/quiz/public/edicao' => AbreScriptEditaQuiz::class,
 ];
 

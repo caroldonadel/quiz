@@ -67,6 +67,11 @@ class PerguntasModel extends Model
         $stmt->bindValue(':titulo', $this->titulo);
         $stmt->bindValue(':idquiz', $this->idquizzes);
         $stmt->execute();
+
+        $query = "SELECT LAST_INSERT_ID() as last_id";
+        $stmt = $conexao->query($query);
+        $id = $stmt->fetch();
+        $this->setIdperguntas($id[0]);
     }
 
     public function lastId(){

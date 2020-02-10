@@ -3,7 +3,7 @@
 <fieldset id="formularioQuiz">
 <div class="form-group">
     <label for="inputAddress">Título do Quiz</label>
-    <input type="text" name="nome" class="form-control" id="inputAddress">
+    <input type="text" name="nome" class="form-control" id="inputAddress" placeholder="Novo quiz">
     <input type="hidden" value="<?php echo $idUsuario; ?>" id="idUsuario">
 </div>
     <div id="listaPerguntas">

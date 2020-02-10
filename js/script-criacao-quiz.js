@@ -61,11 +61,14 @@ let addQuizAjax = function() {
 };
 
 let procuraTexto = function(valor, array){
+
+    console.log(array);
     for(let i=0;i < array.length;i++){
         if (array[i][0].includes(valor)){
 
             vddOuFalso = true;
             idPergunta = array[i][1];
+            console.log(idPergunta);
             break;
         } else {
             vddOuFalso =  false;
@@ -102,6 +105,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
         xhr.onload = function () {
             if (xhr.status === 200) {
                 let PerguntasEid = JSON.parse(xhr.responseText);
+                console.log(PerguntasEid);
                 let perguntasLista = listaPerguntas.querySelectorAll(".pergunta");
                 let alternativasPraAdicionar = [];
 
@@ -159,8 +163,6 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
 let addAlternativasAjax = function(alternativas) {
 
-
-
     for(let i=0; i < alternativas.length; i++ ) {
 
         let xhr = new XMLHttpRequest();
@@ -194,6 +196,7 @@ let addNovaPergunta = function(){
 
     let inputPergunta = document.createElement("input");
     inputPergunta.type = "text";
+    inputPergunta.placeholder = "Nova Pergunta";
     inputPergunta.className = "form-control pergunta";
 
     let divBotao = document.createElement("div");
@@ -213,20 +216,24 @@ let addNovaPergunta = function(){
     let divGroupLabelRadio = document.createElement("div");
     divGroupLabelRadio.className = "form-group col-md-6";
 
-    let labelRadio = document.createElement("label");
-    labelRadio.innerHTML = "Escolha a Correta";
+    let labelRadio = document.createElement("h6");
+
+    let labelRadioHighlight = document.createElement("mark");
+    labelRadioHighlight.innerText = "Escolha a alternativa correta";
 
     let divGroupLabelText = document.createElement("div");
     divGroupLabelText.className = "form-group col-md-6";
 
-    let labelText = document.createElement("label");
-    labelText.innerHTML = "Descrição";
+    // let labelText = document.createElement("label");
+    // labelText.innerHTML = "Descrição";
 
     fieldsetAlternativas.appendChild(divRowLabel);
     divRowLabel.appendChild(divGroupLabelRadio);
     divGroupLabelRadio.appendChild(labelRadio);
-    divRowLabel.appendChild(divGroupLabelText);
-    divGroupLabelText.appendChild(labelText);
+    // divGroupLabelRadio.appendChild(labelRadio);
+    // divRowLabel.appendChild(divGroupLabelText);
+    // divGroupLabelText.appendChild(labelText);
+    labelRadio.appendChild(labelRadioHighlight);
 
     fieldsetPergunta.appendChild(divPergunta);
     fieldsetPergunta.appendChild(fieldsetAlternativas);
@@ -266,6 +273,7 @@ let addNovaAlternativa = function(){
 
     let inputAlternativa = document.createElement("input");
     inputAlternativa.type = "text";
+    inputAlternativa.placeholder = "Nova Alternativa";
     inputAlternativa.className = "form-control alternativa";
     inputAlternativa.id = "alternativaTexto" + numeroId;
 
@@ -293,8 +301,6 @@ let checkRadioButton = function (event) {
     }else {
         elementoAtivo.className = "radio check";
     }
-
-    console.log(elementoAtivo);
 };
 
 botaoAddQuiz.addEventListener("click", addQuizAjax);

@@ -128,7 +128,8 @@ class AlternativasModel extends Model
 
         public function excluir()
     {
-        $query = "DELETE FROM respostas WHERE idperguntas = :idperguntas";
+        echo 'metodo chamado';
+        $query = "DELETE FROM alternativas WHERE idperguntas = :idperguntas";
         $conexao = self::pegarConexao();
         $stmt = $conexao->prepare($query);
         $stmt->bindValue(':idperguntas', $this->idperguntas);
