@@ -10,41 +10,54 @@ let numeroId = 1;
 let numeroNomeRadio = 1;
 let idPergunta;
 let alternativaNova;
-let  vddOuFalso;
+let vddOuFalso;
+let campoVazioPerguntas = false;
+let campoVazioAlternativas = false;
+let radioCheck = false;
 
 
 let addQuizAjax = function() {
+    let perguntas = listaPerguntas.querySelectorAll(".pergunta");
+
+    for(let i=0; i< perguntas.length; i++) {
+        if (perguntas[i].value === ""){
+            campoVazioPerguntas=true;
+            console.log(campoVazioPerguntas);
+            break;
+        }
+    }
+
     let quiz = {titulo: tituloNovoQuiz.value, idusuario: idUsuarioQuiz};
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/cadastra-quiz");
-    xhr.setRequestHeader("Content-Type", "application/json");
+    if (tituloNovoQuiz.value === "" || campoVazioPerguntas===true){
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
+        alert("Você não definiu o quiz!");
+        campoVazioPerguntas=false;
 
-            let idQuizAdicionado = JSON.parse(xhr.responseText);
-            console.log(idQuizAdicionado);
-            let divAlerta = document.querySelector("#divAlerta");
+    }else{
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/quiz/public/cadastra-quiz");
+        xhr.setRequestHeader("Content-Type", "application/json");
 
-            //mandar um ok como resposta de sucesso da função de addalternativas e aqui um if
-            divAlerta.className = "alert alert-success";
-            divAlerta.innerText = "Quiz salvo com sucesso";
+        xhr.onload = function () {
+            if (xhr.status === 200) {
 
-            let perguntas = listaPerguntas.querySelectorAll(".pergunta");
-            // let perguntas = listaPerguntas.querySelectorAll("input[type=text]");
-            let perguntasAEnviar = [];
+                let idQuizAdicionado = JSON.parse(xhr.responseText);
 
-            for(let i=0;i < perguntas.length;i++){
-                console.log(perguntas[i].value);
-                perguntasAEnviar.push(perguntas[i].value);
+                if (idQuizAdicionado !== null) {
+                    // let perguntas = listaPerguntas.querySelectorAll(".pergunta");
+                    let perguntasAEnviar = [];
+
+                    for (let i = 0; i < perguntas.length; i++) {
+                        perguntasAEnviar.push(perguntas[i].value);
+                    }
+
+                    addPerguntasAjax(idQuizAdicionado, perguntasAEnviar);
+                }
             }
-            console.log(perguntasAEnviar);
-
-            addPerguntasAjax(idQuizAdicionado, perguntasAEnviar);
-        }
-    };
-    xhr.send(JSON.stringify(quiz));
+        };
+        xhr.send(JSON.stringify(quiz));
+    }
 };
 
 let procuraTexto = function(valor, array){
@@ -63,58 +76,106 @@ let procuraTexto = function(valor, array){
 
 let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
+    let alternativas = document.querySelectorAll(".alternativa");
+    // let radio = document.querySelector(".radio");
+    // console.log(radio);
+
+    for(let i = 0; i< alternativas.length; i++){
+        if(alternativas[i].value===""){
+            campoVazioAlternativas=true;
+            break;
+        }
+    }
+
     let perguntasNovas = {idquiz: idQuizAdicionado, perguntas:perguntas};
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/cadastra-perguntas");
-    xhr.setRequestHeader("Content-Type", "application/json");
+    if (campoVazioAlternativas===true){
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            let PerguntasEid = JSON.parse(xhr.responseText);
+        alert("Você não definiu o quiz!");
+        campoVazioAlternativas=false;
 
-            let perguntasLista = listaPerguntas.querySelectorAll(".pergunta");
+    }else {
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/quiz/public/cadastra-perguntas");
+        xhr.setRequestHeader("Content-Type", "application/json");
 
-            for(let i=0;i < perguntasLista.length;i++){
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                let PerguntasEid = JSON.parse(xhr.responseText);
+                let perguntasLista = listaPerguntas.querySelectorAll(".pergunta");
+                let alternativasPraAdicionar = [];
 
-                if(procuraTexto(perguntasLista[i].value,PerguntasEid)===true){
-                    console.log("sao iguais");
-                    let alternativas;
-                    let pergunta = perguntasLista[i];
-                    let fieldset = pergunta.closest("fieldset");
-                    alternativas = fieldset.querySelectorAll(".alternativa");
+                for (let i = 0; i < perguntasLista.length; i++) { //cada pergunta do quiz
+                    radioCheck = false;
+                    if (procuraTexto(perguntasLista[i].value, PerguntasEid) === true) {
+                        let pergunta = perguntasLista[i];
+                        let fieldset = pergunta.closest("fieldset");
+                        let alternativas = fieldset.querySelectorAll(".alternativa");
 
-                    console.log(alternativas);
+                        for (let i = 0; i < alternativas.length; i++) {
+                            let divAlternativa = alternativas[i].closest("div");
+                            let radio = divAlternativa.querySelector("input[type=radio]");
+                            console.log(radio);
 
-                    for(let i=0;i < alternativas.length;i++){
-                        let divAlternativa = alternativas[i].closest("div");
-                        let radio = divAlternativa.querySelector("input[type=radio]");
-                        console.log(radio);
-
-                        if(radio.classList.contains("check") === true){
-                            alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 1};
-                        }else{
-                            alternativaNova = {idpergunta: idPergunta, descricao:alternativas[i].value, correta: 0};
+                            if (radio.classList.contains("check") === true) {
+                                alternativaNova = {
+                                    idpergunta: idPergunta,
+                                    descricao: alternativas[i].value,
+                                    correta: 1
+                                };
+                            } else {
+                                alternativaNova = {
+                                    idpergunta: idPergunta,
+                                    descricao: alternativas[i].value,
+                                    correta: 0
+                                };
+                            }
+                            alternativasPraAdicionar.push(alternativaNova);
                         }
 
-                        console.log(alternativaNova);
-                        addAlternativasAjax(alternativaNova);
+                        let radios = fieldset.querySelectorAll("input.radio");
+
+                        for(let i=0; i < radios.length;i++){
+                            if(radios[i].classList.contains("check")){
+                                radioCheck=true;
+                                break;
+                            }
+                        }
                     }
                 }
+                if (radioCheck !== true){
+                    alert("Você não definiu o quiz!");
+                    radioCheck=false;
+                }else{
+                    addAlternativasAjax(alternativasPraAdicionar);
+                }
             }
-        }
-    };
+        };
 
-    xhr.send(JSON.stringify(perguntasNovas));
+        xhr.send(JSON.stringify(perguntasNovas));
+    }
 };
 
-let addAlternativasAjax = function(AlternativaNova) {
+let addAlternativasAjax = function(alternativas) {
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/cadastra-alternativas");
-    xhr.setRequestHeader("Content-Type", "application/json");
+    for(let i=0; i < alternativas.length; i++ ) {
 
-    xhr.send(JSON.stringify(AlternativaNova));
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/quiz/public/cadastra-alternativas");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+
+                let divAlerta = document.querySelector("#divAlerta");
+                divAlerta.className = "alert alert-success";
+                divAlerta.innerText = "Quiz salvo com sucesso";
+
+            }
+        };
+
+        xhr.send(JSON.stringify(alternativas[i]));
+    }
 };
 
 let addNovaPergunta = function(){
@@ -184,7 +245,7 @@ let addNovaPergunta = function(){
 let addNovaAlternativa = function(){
 
     let divTodasAlternativas =  document.createElement("div");
-     divTodasAlternativas.className = "input-group mb-3";
+    divTodasAlternativas.className = "input-group mb-3";
 //    divTodasAlternativas.className = "input-group";
 
     let divInputGroup = document.createElement("div");

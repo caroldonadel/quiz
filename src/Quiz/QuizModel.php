@@ -9,7 +9,6 @@ class QuizModel extends Model
 private $idQuizzes;
 private $titulo;
 private $idUsuarios;
-//private $tituloUltimoAdicionado;
 
     /**
      * @return mixed
@@ -59,22 +58,6 @@ private $idUsuarios;
         $this->idUsuarios = $idUsuarios;
     }
 
-//    /**
-//     * @return mixed
-//     */
-//    public function getTituloUltimoAdicionado()
-//    {
-//        return $this->tituloUltimoAdicionado;
-//    }
-//
-//    /**
-//     * @param mixed $tituloUltimoAdicionado
-//     */
-//    public function setTituloUltimoAdicionado($tituloUltimoAdicionado)
-//    {
-//        $this->tituloUltimoAdicionado = $tituloUltimoAdicionado;
-//    }
-
     public function inserir()
     {
         $query = 'INSERT INTO quizzes (titulo, idusuarios) VALUES (:titulo, :idusuarios)';
@@ -89,7 +72,7 @@ private $idUsuarios;
         $stmt = $conexao->query($query);
         $id = $stmt->fetch();
         $this->idQuizzes = $id[0];
-    }
+        }
 
     public function listar()
     {

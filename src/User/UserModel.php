@@ -119,8 +119,6 @@ private $nivel;
         }
     }
 
-
-
     public static function CarregaAdmin()
     {
         $query = "SELECT * from usuarios WHERE nivel = 'admin'";

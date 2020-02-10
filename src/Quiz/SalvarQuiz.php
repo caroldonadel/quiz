@@ -17,11 +17,18 @@ class SalvarQuiz implements RequestHandlerInterface
         $titulo = $jsonPayload->titulo;
         $idusuario = $jsonPayload->idusuario;
 
+        $quiz->carregar();
+
+        if($quiz->getTitulo()!==$titulo){
+
         $quiz->setTitulo($titulo);
         $quiz->setIdUsuarios($idusuario);
         $quiz->inserir();
 
-        return new Response(200, [], $quiz->getIdQuizzes());
-//        return new Response(200, [], json_encode($quiz));
+            return new Response(200, [], $quiz->getIdQuizzes());
+
+        }else
+
+        return new Response(200, []);
     }
 }

@@ -73,6 +73,7 @@ class PerguntasModel extends Model
         $id = $stmt->fetch();
         $this->idperguntas = $id[0];
     }
+
     public function carregar()
     {
         $query = "SELECT * FROM perguntas WHERE idquizzes = :idquiz";
