@@ -124,6 +124,16 @@ class PerguntasModel extends Model
         }
     }
 
+    public function atualizar()
+    {
+        $query = "UPDATE perguntas set titulo = :titulo WHERE idperguntas = :idperguntas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':titulo', $this->titulo);
+        $stmt->bindValue(':idperguntas', $this->idperguntas);
+        $stmt->execute();
+    }
+
     public function excluir()
     {
         $query = "DELETE FROM perguntas WHERE idquizzes = :idquizzes";

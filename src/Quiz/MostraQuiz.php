@@ -65,7 +65,7 @@ class MostraQuiz implements RequestHandlerInterface
             $_SESSION['idquiz'] = $idQuiz;
             $_SESSION['idUser'] = $idUser;
 
-            return new Response(200, ['Location'=> '/quiz/public/resultado-existe']);
+            return new Response(200, ['Location'=> '/resultado-existe']);
          }
     }
 }

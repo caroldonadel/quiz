@@ -11,7 +11,15 @@ class EditaQuiz implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $json = file_get_contents('php://input');
-        $perguntas = json_decode($json, true);
+        $request = json_decode($json, true);
+
+        $quiz = new QuizModel();
+        $quiz->setTitulo($request['titulo']);
+        $quiz->setIdQuizzes($request['idquiz']);
+
+        $quiz->atualizar();
+
+        var_dump($request);
 
             return new Response(200, []);
     }

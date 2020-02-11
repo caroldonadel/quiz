@@ -11,7 +11,14 @@ class EditaPerguntas implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $json = file_get_contents('php://input');
-        $perguntas = json_decode($json, true);
+        $request = json_decode($json, true);
+
+        $pergunta = new PerguntasModel();
+        $pergunta->setTitulo($request['tituloPergunta']);
+        $pergunta->setIdperguntas($request['idPergunta']);
+        echo $pergunta->getIdperguntas();
+
+        $pergunta->atualizar();
 
         return new Response(200, []);
     }

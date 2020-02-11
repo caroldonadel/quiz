@@ -12,11 +12,11 @@
         <ul class="nav justify-content-center">
 
             <li class="nav-item active">
-                <a class="navbar-brand" href="/quiz/public/inicio">Início</a>
+                <a class="navbar-brand" href="/inicio">Início</a>
             </li>
 
             <li class="nav-item active">
-                <a class="navbar-brand" href="/quiz/public/logout">Sair</a>
+                <a class="navbar-brand" href="/logout">Sair</a>
             </li>
 
         </ul>

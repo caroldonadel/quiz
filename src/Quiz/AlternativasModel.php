@@ -126,7 +126,18 @@ class AlternativasModel extends Model
         }
     }
 
-        public function excluir()
+    public function atualizar()
+    {
+        $query = "UPDATE alternativas set descricao = :descricao, correta = :correta WHERE idalternativas = :idalternativas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':descricao', $this->descricao);
+        $stmt->bindValue(':$idalternativas', $this->idalternativas);
+        $stmt->bindValue(':correta', $this->correta);
+        $stmt->execute();
+    }
+
+    public function excluir()
     {
         echo 'metodo chamado';
         $query = "DELETE FROM alternativas WHERE idperguntas = :idperguntas";

@@ -26,7 +26,7 @@ let carregaProximaPergunta = function() {
         let idQuizAtual = {id: idQuiz.value, indice: indiceListaPerguntas};
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/quiz/public/proxima-pergunta");
+        xhr.open("POST", "/proxima-pergunta");
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onload = function () {
@@ -44,7 +44,7 @@ let carregaProximaPergunta = function() {
                     botaoResultado.innerText = "Resultado";
                     botaoResultado.id = "botaoResultado";
                     botaoResultado.className = "btn btn-light";
-                    botaoResultado.href = "/quiz/public/resultado?idquiz=" + idQuiz.value + "&iduser=" + idUser.value;
+                    botaoResultado.href = "/resultado?idquiz=" + idQuiz.value + "&iduser=" + idUser.value;
 
                 } else {
 
@@ -139,7 +139,7 @@ let salvaRespostaAjax = function() {
     console.log(resposta);
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/cadastra-respostas");
+    xhr.open("POST", "/cadastra-respostas");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.send(JSON.stringify(resposta));

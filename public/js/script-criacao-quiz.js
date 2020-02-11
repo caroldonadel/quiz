@@ -1,6 +1,3 @@
-<?php
-echo
-'
 let botaoAddQuiz = document.querySelector("#botaoAddQuiz");
 let tituloNovoQuiz = document.querySelector("#inputAddress");
 let idUsuarioQuiz = document.querySelector("#idUsuario").value;
@@ -37,7 +34,7 @@ let addQuizAjax = function() {
 
     }else{
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/quiz/public/cadastra-quiz");
+        xhr.open("POST", "/cadastra-quiz");
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onload = function () {
@@ -95,7 +92,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
     }else {
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/quiz/public/cadastra-perguntas");
+        xhr.open("POST", "/cadastra-perguntas");
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onload = function () {
@@ -164,7 +161,7 @@ let addAlternativasAjax = function(alternativas) {
     for(let i=0; i < alternativas.length; i++ ) {
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/quiz/public/cadastra-alternativas");
+        xhr.open("POST", "/cadastra-alternativas");
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onload = function () {
@@ -303,4 +300,3 @@ let checkRadioButton = function (event) {
 
 botaoAddQuiz.addEventListener("click", addQuizAjax);
 botaoAddPergunta.addEventListener("click", addNovaPergunta);
-';

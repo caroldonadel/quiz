@@ -18,6 +18,7 @@ class SalvarAlternativas implements RequestHandlerInterface
            $alternativa = new AlternativasModel();
 
             $alternativa->setDescricao($request->descricao);
+//            $alternativa->setIdalternativas($request->idalternativas);
             $alternativa->setIdperguntas($request->idpergunta);
             $alternativa->setCorreta($request->correta);
 

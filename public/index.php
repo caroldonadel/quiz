@@ -28,7 +28,7 @@ $ehHome = stripos($caminho, 'home');
 if ((!isset($_SESSION['logado']) || $_SESSION['logado']===false)
     && $ehRotaDeLogin === false && $ehNovoUser === false && $ehHome === false) {
 //if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false && $ehNovoUser === false && $ehHome ===false) {
-    header('Location: /quiz/public/login');
+    header('Location: /login');
     exit();
 }
 

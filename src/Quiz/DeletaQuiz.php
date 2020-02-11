@@ -54,7 +54,7 @@ class DeletaQuiz implements RequestHandlerInterface
 
         $quiz->excluir(); //exclui o quiz
 
-        return new Response(200, ['Location' => '/quiz/public/inicio']);
+        return new Response(200, ['Location' => '/inicio']);
 //        return new Response(200, []);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-echo
+    echo
 '
 
 let botaoAddPergunta = document.querySelector("#botaoAddPergunta");
@@ -9,13 +9,15 @@ let numeroNomeRadio = 1;
 let numeroId = 1;
 let tituloIncompleto=false;
 let idquiz = document.querySelector("#idquiz").value;
-let tituloQuiz = document.querySelector("#inputAddress").value;
+// let tituloQuiz = document.querySelector("#inputAddress").value;
+// console.log(divQuiz);
 // let perguntas = document.querySelectorAll(".pergunta");
 let perguntaIncompleta=false;
 // let radioRespondido=true;
 let alternativaIncompleta=false;
 let altCorreta;
 let campoVazioAlternativas = false;
+let radioCheck = false;
 
 let addNovaPergunta = function(){
 
@@ -131,11 +133,13 @@ let checkRadioButton = function (event) {
 
 let confereQuiz = function(){
 
-    let perguntas = document.querySelectorAll(".pergunta");
-    let perguntasValor = [];
-    let perguntasCompletas = [];
+    let tituloQuiz = document.querySelector("#inputAddress").value;
 
-    let arrayPerguntas = [];
+    let perguntas = document.querySelectorAll(".pergunta");
+    let perguntasNovasValor = [];
+    let perguntasNovasCompletas = [];
+
+    let arrayPerguntasEditadas = [];
     let arrayAlternativas = [];
 
     if (tituloQuiz === "") {
@@ -154,11 +158,13 @@ let confereQuiz = function(){
             if(idPergunta !== null){
 
                 perguntaEditada = {
-                    idquiz: idquiz,
+                    idPergunta: idPergunta.value,
                     tituloPergunta: perguntas[i].value
                 };
 
-                arrayPerguntas.push(perguntaEditada);
+                console.log(perguntaEditada);
+
+                arrayPerguntasEditadas.push(perguntaEditada);
 
                 let alternativas = fieldset.querySelectorAll(".alternativa");
 
@@ -180,6 +186,7 @@ let confereQuiz = function(){
                     }
 
                     alternativaEditada = {
+                        idalternativas: alternativas[i].id,
                         idpergunta: idPergunta.value,
                         descricao: alternativas[i].value,
                         correta: altCorreta
@@ -188,12 +195,15 @@ let confereQuiz = function(){
                     arrayAlternativas.push(alternativaEditada);
                 }
             }else {
-                perguntasValor.push(perguntas[i].value);
-                perguntasCompletas.push(perguntas[i])
+                perguntasNovasValor.push(perguntas[i].value);
+                perguntasNovasCompletas.push(perguntas[i])
             }
         }
     }
-    addPerguntasAjax(idquiz, perguntasValor, perguntasCompletas);
+
+    if(perguntasNovasValor.length > 0) {
+        addPerguntasAjax(idquiz, perguntasNovasValor, perguntasNovasCompletas);
+    }
 
     if (tituloIncompleto === true || perguntaIncompleta === true ||
         alternativaIncompleta === true) {
@@ -205,14 +215,14 @@ let confereQuiz = function(){
         // radioNaoRespondido = false;
         alternativaIncompleta = false;
     } else {
-        quizEditado = {titulo: tituloQuiz};
-        // console.log(quizEditado);
+        quizEditado = {idquiz: idquiz, titulo: tituloQuiz};
+        console.log(quizEditado);
         editaQuizAjax(quizEditado);
 
-        for (let i = 0; i < arrayPerguntas.length; i++) {
-            editaPerguntasAjax(arrayPerguntas[i]);
+        for (let i = 0; i < arrayPerguntasEditadas.length; i++) {
+            editaPerguntasAjax(arrayPerguntasEditadas[i]);
         }
-        // console.log(arrayPerguntas);
+        // console.log(arrayPerguntasEditadas);
 
         for (let i = 0; i < arrayAlternativas.length; i++) {
             editaAlternativasAjax(arrayAlternativas[i]);
@@ -223,15 +233,13 @@ let confereQuiz = function(){
 
 let editaAlternativasAjax = function(alternativa){
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/edita-alternativas");
+    xhr.open("POST", "/edita-alternativas");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onload = function () {
         if (xhr.status === 200) {
             console.log("edita alt");
-            // let divAlerta = document.querySelector("#divAlerta");
-            // divAlerta.className = "alert alert-success";
-            // divAlerta.innerText = "Quiz editado com sucesso";
+
         }
     };
 
@@ -240,7 +248,7 @@ let editaAlternativasAjax = function(alternativa){
 
 let editaPerguntasAjax = function(pergunta){
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/edita-perguntas");
+    xhr.open("POST", "/edita-perguntas");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onload = function () {
@@ -258,8 +266,9 @@ let editaPerguntasAjax = function(pergunta){
 };
 
 let editaQuizAjax = function(quiz){
+
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/quiz/public/edicao-quiz");
+    xhr.open("POST", "/edicao-quiz");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onload = function () {
@@ -316,7 +325,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntasValor, perguntasCompl
 
     }else {
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/quiz/public/cadastra-perguntas");
+        xhr.open("POST", "/cadastra-perguntas");
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onload = function () {
@@ -386,7 +395,7 @@ let addAlternativasAjax = function(alternativas) {
     for(let i=0; i < alternativas.length; i++ ) {
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/quiz/public/cadastra-alternativas");
+        xhr.open("POST", "/cadastra-alternativas");
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onload = function () {
@@ -409,5 +418,4 @@ botaoAddPergunta.addEventListener("click", addNovaPergunta);
 for(let i = 0; i < botoesAddAlternativa.length; i++){
     botoesAddAlternativa[i].addEventListener("click", addNovaAlternativa);
 }
-
 ';

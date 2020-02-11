@@ -6,7 +6,7 @@
 <fieldset id="formularioQuiz">
     <div class="form-group">
         <label for="inputAddress">Título do Quiz</label>
-        <input type="text" name="nome" class="form-control" id="inputAddress" value="<?= $tituloQuiz ?>">
+        <input type="text"  class="form-control" id="inputAddress" value="<?= $tituloQuiz ?>">
         <input type="hidden" value="<?php echo $idUsuario; ?>" id="idUsuario">
         <input type="hidden" value="<?php echo $idquiz; ?>" id="idquiz">
     </div>
@@ -47,7 +47,7 @@
                             <?php if($alternativa['correta']==1) : echo 'checked'; endif; ?> >
                         </div>
                     </div>
-                    <input type="text" class="form-control alternativa" id="alternativaTexto<?= $valorIncrementadoId?>"
+                    <input type="text" class="form-control alternativa" id="<?= $alternativa['idalternativas']?>"
                      value="<?= $alternativa['descricao'] ?>">
                 </div>
 
@@ -67,7 +67,7 @@
     <button id="botaoAddQuiz" class="btn btn-primary">Salvar Quiz</button>
 </div>
 
-<script type="text/javascript" src= "/quiz/public/edicao"></script>
+<script type="text/javascript" src= "/edicao"></script>
 
 </body>
 </html>

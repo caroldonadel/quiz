@@ -115,6 +115,16 @@ private $idUsuarios;
         }
     }
 
+    public function atualizar()
+    {
+        $query = "UPDATE quizzes set titulo = :titulo WHERE idquizzes = :idquizzes";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':titulo', $this->titulo);
+        $stmt->bindValue(':idquizzes', $this->idQuizzes);
+        $stmt->execute();
+    }
+
     public function excluir()
     {
         $query = "DELETE FROM quizzes WHERE idquizzes = :idquizzes";

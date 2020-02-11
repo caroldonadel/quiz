@@ -18,7 +18,7 @@
 <button id="botaoAddQuiz" class="btn btn-primary">Salvar Quiz</button>
 </div>
 
-<script type="text/javascript" src= "/quiz/public/principal"></script>
+<script type="text/javascript" src= "/js/script-criacao-quiz.js"></script>
 
 </body>
 </html>

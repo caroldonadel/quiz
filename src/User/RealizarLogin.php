@@ -22,7 +22,7 @@ class RealizarLogin implements RequestHandlerInterface
             FILTER_VALIDATE_EMAIL
         );
 
-        $redirecionamentoLogin = new Response(302, ['Location' => '/quiz/public/login']);
+        $redirecionamentoLogin = new Response(302, ['Location' => '/login']);
 
         if ($email === false) {
             $this->defineMensagem(
@@ -61,7 +61,7 @@ class RealizarLogin implements RequestHandlerInterface
 //            'lista' => $quizzes->listar()
 //        ]);
 
-        return new Response(200, ['Location' => '/quiz/public/inicio']);
+        return new Response(200, ['Location' => '/inicio']);
 //        return new Response(200, [], $html);
 
     }
