@@ -14,6 +14,7 @@ let vddOuFalso;
 let campoVazioPerguntas = false;
 let campoVazioAlternativas = false;
 let radioCheck = false;
+let PerguntasEid = null;
 
 
 let addQuizAjax = function() {
@@ -61,8 +62,6 @@ let addQuizAjax = function() {
 };
 
 let procuraTexto = function(valor, array){
-
-    console.log(array);
     for(let i=0;i < array.length;i++){
         if (array[i][0].includes(valor)){
 
@@ -80,8 +79,6 @@ let procuraTexto = function(valor, array){
 let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
     let alternativas = document.querySelectorAll(".alternativa");
-    // let radio = document.querySelector(".radio");
-    // console.log(radio);
 
     for(let i = 0; i< alternativas.length; i++){
         if(alternativas[i].value===""){
@@ -91,7 +88,6 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
     }
 
     let perguntasNovas = {idquiz: idQuizAdicionado, perguntas:perguntas};
-    console.log(perguntasNovas);
     if (campoVazioAlternativas===true){
 
         alert("Você não definiu o quiz!");
@@ -104,7 +100,9 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                let PerguntasEid = JSON.parse(xhr.responseText);
+
+                // if(PerguntasEid === null){
+                 PerguntasEid = JSON.parse(xhr.responseText);
                 console.log(PerguntasEid);
                 let perguntasLista = listaPerguntas.querySelectorAll(".pergunta");
                 let alternativasPraAdicionar = [];
@@ -119,7 +117,6 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
                         for (let i = 0; i < alternativas.length; i++) {
                             let divAlternativa = alternativas[i].closest("div");
                             let radio = divAlternativa.querySelector("input[type=radio]");
-                            console.log(radio);
 
                             if (radio.classList.contains("check") === true) {
                                 alternativaNova = {
@@ -147,13 +144,14 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
                         }
                     }
                 }
-                if (radioCheck !== true){
-                    alert("Você não definiu o quiz!");
-                    radioCheck=false;
-                }else{
-                    console.log(alternativasPraAdicionar);
-                    addAlternativasAjax(alternativasPraAdicionar);
-                }
+                    if (radioCheck !== true){
+                        alert("Você não definiu o quiz!");
+                        radioCheck=false;
+                    }else{
+                        console.log(alternativasPraAdicionar);
+                        addAlternativasAjax(alternativasPraAdicionar);
+                    }
+                // }
             }
         };
 

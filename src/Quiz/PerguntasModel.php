@@ -80,6 +80,7 @@ class PerguntasModel extends Model
         $stmt = $conexao->query($query);
         $id = $stmt->fetch();
         $this->idperguntas = $id[0];
+        var_dump($id);
     }
 
     public function listar()
@@ -105,6 +106,21 @@ class PerguntasModel extends Model
 
         if (!$pergunta===false) {
             $this->titulo = $pergunta['titulo'];
+        }
+    }
+
+    public function carregarTitulo()
+    {
+        $query = "SELECT * FROM perguntas WHERE titulo = :titulo";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':titulo', $this->titulo);
+        $stmt->execute();
+        $pergunta = $stmt->fetch();
+
+        if (!$pergunta===false) {
+            $this->titulo = $pergunta['titulo'];
+            $this->idperguntas = $pergunta['idperguntas'];
         }
     }
 

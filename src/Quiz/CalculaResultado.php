@@ -111,10 +111,11 @@ class CalculaResultado implements RequestHandlerInterface
 //                echo '<br>';
 //                echo '<br>';
             }
-        }
-
             $pergunta['listaDeAlternativas'] = $listaAlternativasMerge;
             $listaAlternativas = [];
+        }
+
+
 
 
 //        $perguntasQuiz = new PerguntasModel();
@@ -122,8 +123,7 @@ class CalculaResultado implements RequestHandlerInterface
 //        $perguntasQuiz = $perguntasQuiz->carregar();
 
         $html = $this->renderizaHtml('users/resultado-quiz.php', [
-            'titulo' => "Resultado",
-            'tituloQuiz' => $quiz->getTitulo(),
+            'titulo' => $quiz->getTitulo(),
             'perguntas' => $perguntas,
             'respostas' => $respostas,
             'correta' => $alternativaCorreta

@@ -2,7 +2,6 @@
 
 namespace Quiz\Armazenamento\Quiz;
 
-use Quiz\Armazenamento\Helper\FlashMessageTrait;
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Nyholm\Psr7\Response;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -19,15 +18,24 @@ class SalvarPerguntas implements RequestHandlerInterface
             $pergunta = new PerguntasModel();
             $titulo = $tituloPergunta;
             $idquiz = $perguntas["idquiz"];
+            $pergunta->setTitulo($titulo);
 
-            $pergunta->lastId(); //define idperguntas
-            $pergunta->carregar();
+            $pergunta->carregarTitulo();
+            $idPerguntas = $pergunta->getIdperguntas();
 
-            if ($pergunta->getTitulo() !== $titulo) {
-                $pergunta->setTitulo($tituloPergunta);
+            if (!isset($idPerguntas)){
+//                echo "nao esta no bd";
+                $pergunta->setTitulo($titulo);
                 $pergunta->setIdquiz($idquiz);
                 $pergunta->inserir(); //redefine o idperguntas pra enviar corretamente pro JS
 
+                $perguntaEidLoop = [$pergunta->getTitulo(), $pergunta->getIdperguntas()];
+                array_push($perguntaEid, $perguntaEidLoop);
+
+//                var_dump($perguntaEid);
+            }else{
+//                echo "ja estava no bd";
+                $pergunta->setTitulo($tituloPergunta);
                 $perguntaEidLoop = [$pergunta->getTitulo(), $pergunta->getIdperguntas()];
                 array_push($perguntaEid, $perguntaEidLoop);
             }

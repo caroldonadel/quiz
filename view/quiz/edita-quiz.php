@@ -54,6 +54,7 @@
                 <?php $valorIncrementadoId++;?>
                 <?php endif; ?>
                 <?php endforeach; ?>
+            </fieldset>
                 <?php $valorIncrementadoName++?>
 
         </fieldset>

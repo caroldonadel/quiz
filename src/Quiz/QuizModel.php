@@ -98,6 +98,23 @@ private $idUsuarios;
         }
     }
 
+    public function carregarTitulo()
+    {
+        $query = "SELECT * FROM quizzes WHERE titulo = :titulo";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':titulo', $this->titulo);
+        $stmt->execute();
+        $quiz = $stmt->fetch();
+//        var_dump($quiz);
+
+        if (!$quiz===false) {
+            $this->titulo = $quiz['titulo'];
+            $this->idUsuarios = $quiz['idusuarios'];
+            $this->idQuizzes = $quiz['idquizzes'];
+        }
+    }
+
     public function excluir()
     {
         $query = "DELETE FROM quizzes WHERE idquizzes = :idquizzes";

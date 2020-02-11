@@ -15,20 +15,20 @@ class SalvarQuiz implements RequestHandlerInterface
 
         $quiz = new QuizModel();
         $titulo = $jsonPayload->titulo;
+        $quiz->setTitulo($titulo);
         $idusuario = $jsonPayload->idusuario;
 
-        $quiz->carregar();
+        $quiz->carregarTitulo();
+        $idquiz = $quiz->getIdQuizzes();
 
-        if($quiz->getTitulo()!==$titulo){
-
-            $quiz->setTitulo($titulo);
+        if(!isset($idquiz)){
             $quiz->setIdUsuarios($idusuario);
             $quiz->inserir();
 
             return new Response(200, [], $quiz->getIdQuizzes());
 
-        }else
-
-            return new Response(200, []);
+        }else{
+            return new Response(200, [], $quiz->getIdQuizzes());
+         }
         }
 }

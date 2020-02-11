@@ -8,10 +8,12 @@ use Quiz\Armazenamento\User\{
     FormularioLogin,
     Inicio,
     RealizarLogin};
-use Quiz\Armazenamento\Quiz\{
-    CalculaResultado,
+use Quiz\Armazenamento\Quiz\{CalculaResultado,
     CalculaResultadoExistente,
     DeletaQuiz,
+    EditaAlternativas,
+    EditaPerguntas,
+    EditaQuiz,
     FormularioEdicao,
     FormularioQuiz,
     MostraQuiz,
@@ -48,5 +50,8 @@ return [
     '/quiz/public/exclui-quiz' => DeletaQuiz::class,
     '/quiz/public/edita-quiz' => FormularioEdicao::class,
     '/quiz/public/edicao' => AbreScriptEditaQuiz::class,
+    '/quiz/public/edita-alternativas' => EditaAlternativas::class,
+    '/quiz/public/edita-perguntas' => EditaPerguntas::class,
+    '/quiz/public/edicao-quiz' => EditaQuiz::class
 ];
 
