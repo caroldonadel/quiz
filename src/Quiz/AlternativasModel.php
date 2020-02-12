@@ -137,13 +137,21 @@ class AlternativasModel extends Model
         $stmt->execute();
     }
 
-    public function excluir()
+    public function excluirTodas()
     {
-        echo 'metodo chamado';
         $query = "DELETE FROM alternativas WHERE idperguntas = :idperguntas";
         $conexao = self::pegarConexao();
         $stmt = $conexao->prepare($query);
         $stmt->bindValue(':idperguntas', $this->idperguntas);
+        $stmt->execute();
+    }
+
+    public function excluir()
+    {
+        $query = "DELETE FROM alternativas WHERE idalternativas = :idalternativas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idalternativas', $this->idalternativas);
         $stmt->execute();
     }
 

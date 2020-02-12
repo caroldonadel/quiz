@@ -14,6 +14,8 @@ use Quiz\Armazenamento\Quiz\{CalculaResultado,
     EditaAlternativas,
     EditaPerguntas,
     EditaQuiz,
+    ExcluiAlternativa,
+    ExcluiPergunta,
     FormularioEdicao,
     FormularioQuiz,
     MostraQuiz,
@@ -23,9 +25,7 @@ use Quiz\Armazenamento\Quiz\{CalculaResultado,
     SalvarPerguntas,
     SalvarQuiz,
     SalvarRespostas};
-use Quiz\Armazenamento\Helper\AbreScriptEditaQuiz;
-use Quiz\Armazenamento\Helper\AbreScriptMostraQuiz;
-use Quiz\Armazenamento\Helper\AbreScriptNovoQuiz;
+
 
 return [
     '/' => Home::class,
@@ -37,11 +37,9 @@ return [
     '/logout' => Deslogar::class,
     '/novo-quiz' => FormularioQuiz::class,
     '/cadastra-quiz' => SalvarQuiz::class,
-//    '/principal' => AbreScriptNovoQuiz::class,
     '/cadastra-perguntas' => SalvarPerguntas::class,
     '/cadastra-alternativas' => SalvarAlternativas::class,
     '/quiz' => MostraQuiz::class,
-//    '/mostra-quiz' => AbreScriptMostraQuiz::class,
     '/proxima-pergunta' => ProximaPergunta::class,
     '/cadastra-respostas' => SalvarRespostas::class,
     '/resultado' => CalculaResultado::class,
@@ -49,9 +47,10 @@ return [
     '/resultado-existe' => CalculaResultadoExistente::class,
     '/exclui-quiz' => DeletaQuiz::class,
     '/edita-quiz' => FormularioEdicao::class,
-    '/edicao' => AbreScriptEditaQuiz::class,
     '/edita-alternativas' => EditaAlternativas::class,
     '/edita-perguntas' => EditaPerguntas::class,
-    '/edicao-quiz' => EditaQuiz::class
+    '/edicao-quiz' => EditaQuiz::class,
+    '/exclui-pergunta' => ExcluiPergunta::class,
+    '/exclui-alternativa' => ExcluiAlternativa::class
 ];
 

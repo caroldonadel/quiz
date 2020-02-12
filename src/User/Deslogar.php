@@ -13,6 +13,6 @@ class Deslogar implements RequestHandlerInterface
     {
         session_destroy();
         $_SESSION = [];
-        return new Response(302, ['Location' => '/home'] );
+        return new Response(302, ['Location' => '/'] );
     }
 }

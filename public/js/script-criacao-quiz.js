@@ -181,7 +181,7 @@ let addAlternativasAjax = function(alternativas) {
 let addNovaPergunta = function(){
 
     let fieldsetPergunta = document.createElement("fieldset");
-    fieldsetPergunta.className = "form-group";
+    fieldsetPergunta.className = "form-group border bg-light rounded p-1";
 
     let divPergunta = document.createElement("div");
     divPergunta.className = "form-row";
@@ -269,13 +269,13 @@ let addNovaAlternativa = function(){
     let inputAlternativa = document.createElement("input");
     inputAlternativa.type = "text";
     inputAlternativa.placeholder = "Nova Alternativa";
-    inputAlternativa.className = "form-control alternativa";
+    inputAlternativa.className = "form-control w-50 alternativa";
     inputAlternativa.id = "alternativaTexto" + numeroId;
 
-    botaoParent = this.parentNode;
-    divParent = botaoParent.closest(".form-row");
-    fieldsetParent = divParent.closest("fieldset");
-    fieldsetAlternativas = fieldsetParent.querySelector("fieldset");
+    let botaoParent = this.parentNode;
+    let divParent = botaoParent.closest(".form-row");
+    let fieldsetParent = divParent.closest("fieldset");
+    let fieldsetAlternativas = fieldsetParent.querySelector("fieldset");
 
     fieldsetAlternativas.appendChild(divTodasAlternativas);
     divTodasAlternativas.appendChild(divInputGroup);

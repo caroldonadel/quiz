@@ -134,12 +134,21 @@ class PerguntasModel extends Model
         $stmt->execute();
     }
 
-    public function excluir()
+    public function excluirTodas()
     {
         $query = "DELETE FROM perguntas WHERE idquizzes = :idquizzes";
         $conexao = self::pegarConexao();
         $stmt = $conexao->prepare($query);
         $stmt->bindValue(':idquizzes', $this->idquizzes);
+        $stmt->execute();
+    }
+
+    public function excluir()
+    {
+        $query = "DELETE FROM perguntas WHERE idperguntas = :idperguntas";
+        $conexao = self::pegarConexao();
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue(':idperguntas', $this->idperguntas);
         $stmt->execute();
     }
 }

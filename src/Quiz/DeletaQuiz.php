@@ -38,7 +38,7 @@ class DeletaQuiz implements RequestHandlerInterface
             $idAlternativa = $alternativa['idalternativas'];
             $respostas->setIdalternativas($idAlternativa);
             $respostas->excluir(); //exclui as respostas que escolheram a alternativa da vez
-            $alternativas->excluir();//exclui a alternativa
+            $alternativas->excluirTodas();//exclui a alternativa
         }
 
         $idAlternativas = [];
@@ -49,7 +49,7 @@ class DeletaQuiz implements RequestHandlerInterface
         foreach ($perguntasDoQuiz as $pergunta){//exclui as perguntas
 //            array_push($idPerguntas, $pergunta['idperguntas']);
         $perguntas->setIdquiz($idquiz);
-        $perguntas->excluir();
+        $perguntas->excluirTodas();
         }
 
         $quiz->excluir(); //exclui o quiz

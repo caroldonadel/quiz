@@ -52,15 +52,6 @@ class RealizarLogin implements RequestHandlerInterface
         $_SESSION['email'] = $usuario->getEmail();
         $_SESSION['logado'] = true;
 
-//        $quizzes = new QuizModel();
-
-//        $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
-//            'titulo' => 'Seus Quizzes',
-//            'nivel' => $usuario->getNivel(),
-//            'idUsuario' => $usuario->getIdUsuario(),
-//            'lista' => $quizzes->listar()
-//        ]);
-
         return new Response(200, ['Location' => '/inicio']);
 //        return new Response(200, [], $html);
 

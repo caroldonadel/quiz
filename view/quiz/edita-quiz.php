@@ -13,28 +13,26 @@
 
     <div id="listaPerguntas">
         <div class="form-group">
-            <button id="botaoAddPergunta" class="btn btn-primary">Criar pergunta</button>
+            <button id="botaoAddPergunta" class="btn btn-outline-info">Criar pergunta</button>
         </div>
         <?php foreach ($listaPerguntas as $pergunta) : ?>
 
-        <fieldset class="form-group">
+        <fieldset class="form-group form-group border bg-light rounded p-1 ">
             <input type="hidden" value="<?= $pergunta['idperguntas']?>" id="idPergunta">
-            <div class="form-row">
+            <div class="form-row ">
                 <div class="form-group col-md-6">
                     <input type="text" class="form-control pergunta" value="<?= $pergunta['titulo'] ?>">
                 </div>
-                <div class="form-group col-md-2">
-                    <button type="submit" class="btn btn-primary mb-2">Criar Alternativa </button>
-                </div>
+                <span>
+                    <button type="submit" class="btn btn-outline-info mb-2">Criar Alternativa</button>
+                    <a href="/exclui-pergunta?idpergunta=<?= $pergunta['idperguntas']?>&idquiz=<?= $idquiz ?>" class="btn btn-outline-danger mb-2">Excluir</a>
+                </span>
             </div>
             <fieldset class="form-check">
                 <div class="form-row">
                        <div class="form-group col-md-6">
                            <h6><mark>Escolha a alternativa correta</mark></h6>
                        </div>
-<!--                    <div class="form-group col-md-6">-->
-<!--                        <label>Descrição da Alternativa</label>-->
-<!--                    </div>-->
                 </div>
                 <?php foreach ($listaAlternativas as $alternativa) :
                     if($alternativa['idperguntas']===$pergunta['idperguntas']) : ?>
@@ -47,8 +45,12 @@
                             <?php if($alternativa['correta']==1) : echo 'checked'; endif; ?> >
                         </div>
                     </div>
-                    <input type="text" class="form-control alternativa" id="<?= $alternativa['idalternativas']?>"
+                    <input type="text" class="form-control alternativa w-50" id="<?= $alternativa['idalternativas']?>"
                      value="<?= $alternativa['descricao'] ?>">
+                    <div class="input-group-append">
+                        <a href="/exclui-alternativa?idalternativa=<?= $alternativa['idalternativas']?>&idquiz=<?= $idquiz ?>"
+                        class="btn btn-outline-danger">Excluir</a>
+                    </div>
                 </div>
 
                 <?php $valorIncrementadoId++;?>
@@ -63,8 +65,8 @@
 
 </fieldset>
 
-<div class="form-group">
-    <button id="botaoAddQuiz" class="btn btn-primary">Salvar Quiz</button>
+<div class="d-flex justify-content-center">
+    <button id="botaoAddQuiz" class="btn btn-outline-info btn-lg mb-2 ">Salvar Quiz</button>
 </div>
 
 <script type="text/javascript" src= "/js/script-edita-quiz.js"></script>
