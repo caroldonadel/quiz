@@ -16,16 +16,16 @@
 
 <ul class="list-group">
 <?php foreach ($lista as $linha) : ?>
-<!--    <div class=" list-group-item d-flex justify-content-between">-->
-    <li class="list-group-item p-2 d-flex justify-content-end border border-primary rounded bg-light">
-        <a href="/quiz?id=<?= $linha['idquizzes'] ?>&idUser=<?= $idUsuario ?>" class="btn btn-light btn-lg w-75">
+    <div class=" d-flex justify-content-end w-100 p-2 mb-2 border border-secondary rounded bg-light">
+        <a href="/quiz?id=<?= $linha['idquizzes'] ?>&idUser=<?= $idUsuario ?>" class=" w-75 h4">
             <?= $linha['titulo'] ?>
         </a>
+        <span class="borderd-inline-table-cell">
         <?php if($nivel === 'admin') { ?>
-            <a href="/exclui-quiz?id=<?=$linha['idquizzes']?>" class="btn btn-danger">
+            <a href="/exclui-quiz?id=<?=$linha['idquizzes']?>" class="h4 btn btn-danger  m-0">
                 Deletar
             </a>
-            <a href="/edita-quiz?id=<?=$linha['idquizzes']?>" class="btn btn-success">
+            <a href="/edita-quiz?id=<?=$linha['idquizzes']?>" class="h4 btn btn-success  m-0">
                 Editar
             </a>
         <?php }else{ ?>
@@ -36,7 +36,8 @@
                 Editar
             </a>
         <?php  } ?>
-    </li>
+        </span>
+    </div>
     <?php endforeach; ?>
 </ul>
 </div>

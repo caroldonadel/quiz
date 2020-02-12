@@ -1,7 +1,3 @@
-<?php
-    echo
-'
-
 let botaoProxima = document.querySelector("#botaoProxima");
 let idQuiz = document.querySelector("#idQuiz");
 let idUser = document.querySelector("#idUser");
@@ -155,4 +151,3 @@ for(let i = 0; i < radios2.length; i++){
 botaoProxima.addEventListener("click", carregaProximaPergunta);
 botaoProxima.addEventListener("click", salvaRespostaAjax);
 
-';

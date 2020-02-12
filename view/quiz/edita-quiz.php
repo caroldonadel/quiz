@@ -67,7 +67,7 @@
     <button id="botaoAddQuiz" class="btn btn-primary">Salvar Quiz</button>
 </div>
 
-<script type="text/javascript" src= "/edicao"></script>
+<script type="text/javascript" src= "/js/script-edita-quiz.js"></script>
 
 </body>
 </html>

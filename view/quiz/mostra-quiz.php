@@ -25,7 +25,7 @@
 </div>
 <button type="button"  class="btn btn-light" id="botaoProxima"> Próxima Pergunta</button>
 </div>
-<script type="text/javascript" src= "/mostra-quiz"></script>
+<script type="text/javascript" src= "/js/script-mostra-quiz.js"></script>
 
 
 

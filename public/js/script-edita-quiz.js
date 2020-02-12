@@ -1,6 +1,3 @@
-<?php
-    echo
-'
 
 let botaoAddPergunta = document.querySelector("#botaoAddPergunta");
 let botoesAddAlternativa = document.querySelectorAll("button.mb-2");
@@ -418,4 +415,3 @@ botaoAddPergunta.addEventListener("click", addNovaPergunta);
 for(let i = 0; i < botoesAddAlternativa.length; i++){
     botoesAddAlternativa[i].addEventListener("click", addNovaAlternativa);
 }
-';
