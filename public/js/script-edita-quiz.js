@@ -7,7 +7,6 @@ let numeroId = 1;
 let tituloIncompleto=false;
 let idquiz = document.querySelector("#idquiz").value;
 // let tituloQuiz = document.querySelector("#inputAddress").value;
-// console.log(divQuiz);
 // let perguntas = document.querySelectorAll(".pergunta");
 let perguntaIncompleta=false;
 // let radioRespondido=true;
@@ -15,6 +14,7 @@ let alternativaIncompleta=false;
 let altCorreta;
 let campoVazioAlternativas = false;
 let radioCheck = false;
+let semAlts = false;
 
 let addNovaPergunta = function(){
 
@@ -106,7 +106,7 @@ let addNovaAlternativa = function(){
     inputAlternativa.type = "text";
     inputAlternativa.placeholder = "Nova Alternativa";
     inputAlternativa.className = "form-control alternativa";
-    inputAlternativa.id = "alternativaTexto" + numeroId;
+    // inputAlternativa.id = "alternativaTexto" + numeroId;
 
     let divBotaoExcluirAlt = document.createElement("div");
     divBotaoExcluirAlt.className = "input-group-append";
@@ -149,11 +149,11 @@ let confereQuiz = function(){
     let tituloQuiz = document.querySelector("#inputAddress").value;
 
     let perguntas = document.querySelectorAll(".pergunta");
-    let perguntasNovasValor = [];
-    let perguntasNovasCompletas = [];
-
-    let arrayPerguntasEditadas = [];
-    let arrayAlternativas = [];
+    let perguntasNovasValor = []; //usado pra enviar como json por ajax pro controller que envia pro BD
+    let perguntasNovasCompletas = [];//usado pra conectar o id das perguntas recem adicionadas com seus elementos html
+    let arrayPerguntasEditadas = []; //usado pra enviar as perguntas pro bd
+    let arrayAlternativas = []; //usado pra alterar no bd alts existentes editadas
+    let arrayAltsNovas = []; //usado pra enviar pro bd novas alternativas nas perguntas ja existentes
 
     if (tituloQuiz === "") {
         tituloIncompleto = true;
@@ -175,37 +175,45 @@ let confereQuiz = function(){
                     tituloPergunta: perguntas[i].value
                 };
 
-                console.log(perguntaEditada);
-
                 arrayPerguntasEditadas.push(perguntaEditada);
 
                 let alternativas = fieldset.querySelectorAll(".alternativa");
 
+                if(alternativas.length <=0){
+                    semAlts = true;
+                }
+
                 for (let i = 0; i < alternativas.length; i++) {
 
+                    console.log(alternativas[i].value);
                     if (alternativas[i].value === "") {
                         alternativaIncompleta = true;
                         break;
                     }
 
-                    let divAlternativa = alternativas[i].closest("div");
-                    let radioAlternativa = divAlternativa.querySelector("input.radio");
-                    // console.log(radioAlternativa);
+                        let divAlternativa = alternativas[i].closest("div");
+                        let radioAlternativa = divAlternativa.querySelector("input.radio");
+                        // console.log(radioAlternativa);
 
-                    if (radioAlternativa.classList.contains("check") === true) {
-                        altCorreta = 1;
-                    } else {
-                        altCorreta = 0;
-                    }
+                        if (radioAlternativa.classList.contains("check") === true) {
+                            altCorreta = 1;
+                        } else {
+                            altCorreta = 0;
+                        }
 
-                    alternativaEditada = {
-                        idalternativas: alternativas[i].id,
-                        idpergunta: idPergunta.value,
-                        descricao: alternativas[i].value,
-                        correta: altCorreta
-                    };
+                        alternativaEditada = {
+                            idalternativas: alternativas[i].id,
+                            idpergunta: idPergunta.value,
+                            descricao: alternativas[i].value,
+                            correta: altCorreta
+                        };
 
-                    arrayAlternativas.push(alternativaEditada);
+                        if(alternativas[i].id !== '') {
+                            arrayAlternativas.push(alternativaEditada);
+
+                        }else{
+                            arrayAltsNovas.push(alternativaEditada);
+                        }
                 }
             }else {
                 perguntasNovasValor.push(perguntas[i].value);
@@ -213,13 +221,18 @@ let confereQuiz = function(){
             }
         }
     }
-
+    //ADD NO BD NOVAS PERGUNTAS E ALTS NOVAS DE PERGUNTAS EXISTENTES
     if(perguntasNovasValor.length > 0) {
         addPerguntasAjax(idquiz, perguntasNovasValor, perguntasNovasCompletas);
     }
 
+    if(arrayAltsNovas.length > 0) {
+        addAlternativasAjax(arrayAltsNovas);
+    }
+
+    //CONFERINDO SE ALGO ESTA INCOMPLETO ANTES DE EDITAR TUDO NO BD
     if (tituloIncompleto === true || perguntaIncompleta === true ||
-        alternativaIncompleta === true) {
+        alternativaIncompleta === true || semAlts === true) {
         // radioNaoRespondido === true || alternativaIncompleta === true) {
 
         alert("Você não definiu o quiz!");
@@ -229,18 +242,15 @@ let confereQuiz = function(){
         alternativaIncompleta = false;
     } else {
         quizEditado = {idquiz: idquiz, titulo: tituloQuiz};
-        console.log(quizEditado);
         editaQuizAjax(quizEditado);
 
         for (let i = 0; i < arrayPerguntasEditadas.length; i++) {
             editaPerguntasAjax(arrayPerguntasEditadas[i]);
         }
-        // console.log(arrayPerguntasEditadas);
 
         for (let i = 0; i < arrayAlternativas.length; i++) {
             editaAlternativasAjax(arrayAlternativas[i]);
         }
-        // console.log(arrayAlternativas);
     }
 };
 
