@@ -291,20 +291,19 @@ let procuraTexto = function(valor, array){
     for(let i=0;i < array.length;i++){
         if (array[i][0].includes(valor)){
 
-            vddOuFalso = true;
+            perguntaEstaNoBD = true;
             idPergunta = array[i][1];
             break;
         } else {
-            vddOuFalso =  false;
+            perguntaEstaNoBD =  false;
         }
     }
-    return vddOuFalso;
+    return perguntaEstaNoBD;
 };
 
 let addPerguntasAjax = function(idQuizAdicionado, perguntasValor, perguntasCompletas) {
 
     let alternativasNovas = [];
-    let alternativasPraAdicionar = [];
 
     for(let i = 0; i < perguntasCompletas.length; i++){
         let fieldset = perguntasCompletas[i].closest("fieldset");

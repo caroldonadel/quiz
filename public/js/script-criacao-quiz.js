@@ -7,12 +7,38 @@ let numeroId = 1;
 let numeroNomeRadio = 1;
 let idPergunta;
 let alternativaNova;
-let vddOuFalso;
+let perguntaEstaNoBD;
 let campoVazioPerguntas = false;
 let campoVazioAlternativas = false;
 let radioCheck = false;
 let PerguntasEid = null;
 
+//Verifica se input radio esta selecionado ou não
+let checkRadio = function (event) {
+    let elementoAtivo = event.currentTarget;
+
+    if(elementoAtivo.classList.contains("check")){
+        elementoAtivo.className = "radio";
+    }else {
+        elementoAtivo.className = "radio check";
+    }
+};
+
+/*verifica se o texto de um input de nova pergunta esta no array retornado pelo controller que adiciona as perguntas
+novas no BD para pegar seus ids e relacionar a suas alternativas */
+let procuraTexto = function(valor, array){
+    for(let i=0;i < array.length;i++){
+        if (array[i][0].includes(valor)){
+
+            perguntaEstaNoBD = true;
+            idPergunta = array[i][1];
+            break;
+        } else {
+            perguntaEstaNoBD =  false;
+        }
+    }
+    return perguntaEstaNoBD;
+};
 
 let addQuizAjax = function() {
     let perguntas = listaPerguntas.querySelectorAll(".pergunta");
@@ -20,14 +46,13 @@ let addQuizAjax = function() {
     for(let i=0; i< perguntas.length; i++) {
         if (perguntas[i].value === ""){
             campoVazioPerguntas=true;
-            console.log(campoVazioPerguntas);
             break;
         }
     }
 
     let quiz = {titulo: tituloNovoQuiz.value, idusuario: idUsuarioQuiz};
 
-    if (tituloNovoQuiz.value === "" || campoVazioPerguntas===true){
+    if (tituloNovoQuiz.value === "" || campoVazioPerguntas === true){
 
         alert("Você não definiu o quiz!");
         campoVazioPerguntas=false;
@@ -43,7 +68,6 @@ let addQuizAjax = function() {
                 let idQuizAdicionado = JSON.parse(xhr.responseText);
 
                 if (idQuizAdicionado !== null) {
-                    // let perguntas = listaPerguntas.querySelectorAll(".pergunta");
                     let perguntasAEnviar = [];
 
                     for (let i = 0; i < perguntas.length; i++) {
@@ -58,21 +82,6 @@ let addQuizAjax = function() {
     }
 };
 
-let procuraTexto = function(valor, array){
-    for(let i=0;i < array.length;i++){
-        if (array[i][0].includes(valor)){
-
-            vddOuFalso = true;
-            idPergunta = array[i][1];
-            console.log(idPergunta);
-            break;
-        } else {
-            vddOuFalso =  false;
-        }
-    }
-    return vddOuFalso;
-};
-
 let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
     let alternativas = document.querySelectorAll(".alternativa");
@@ -85,6 +94,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
     }
 
     let perguntasNovas = {idquiz: idQuizAdicionado, perguntas:perguntas};
+
     if (campoVazioAlternativas===true){
 
         alert("Você não definiu o quiz!");
@@ -98,13 +108,11 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
         xhr.onload = function () {
             if (xhr.status === 200) {
 
-                // if(PerguntasEid === null){
-                 PerguntasEid = JSON.parse(xhr.responseText);
-                console.log(PerguntasEid);
+                PerguntasEid = JSON.parse(xhr.responseText);
                 let perguntasLista = listaPerguntas.querySelectorAll(".pergunta");
                 let alternativasPraAdicionar = [];
 
-                for (let i = 0; i < perguntasLista.length; i++) { //cada pergunta do quiz
+                for (let i = 0; i < perguntasLista.length; i++) {
                     radioCheck = false;
                     if (procuraTexto(perguntasLista[i].value, PerguntasEid) === true) {
                         let pergunta = perguntasLista[i];
@@ -115,6 +123,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
                             let divAlternativa = alternativas[i].closest("div");
                             let radio = divAlternativa.querySelector("input[type=radio]");
 
+                            //idPergunta é definida na chamada a função procuraTexto
                             if (radio.classList.contains("check") === true) {
                                 alternativaNova = {
                                     idpergunta: idPergunta,
@@ -133,6 +142,7 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
 
                         let radios = fieldset.querySelectorAll("input.radio");
 
+                        //verificando se pelo menos uma das alternativas de uma pergunta está marcada como correta
                         for(let i=0; i < radios.length;i++){
                             if(radios[i].classList.contains("check")){
                                 radioCheck=true;
@@ -141,14 +151,13 @@ let addPerguntasAjax = function(idQuizAdicionado, perguntas) {
                         }
                     }
                 }
-                    if (radioCheck !== true){
-                        alert("Você não definiu o quiz!");
-                        radioCheck=false;
-                    }else{
-                        console.log(alternativasPraAdicionar);
-                        addAlternativasAjax(alternativasPraAdicionar);
-                    }
-                // }
+
+                if (radioCheck !== true){
+                    alert("Você não definiu o quiz!");
+                    radioCheck=false;
+                }else{
+                    addAlternativasAjax(alternativasPraAdicionar);
+                }
             }
         };
 
@@ -295,18 +304,8 @@ let addNovaAlternativa = function(){
 
     numeroId++;
 
-    inputRadio.addEventListener("click", checkRadioButton);
+    inputRadio.addEventListener("click", checkRadio);
     botaoExcluirAlt.addEventListener('click', excluiAlternativa);
-};
-
-let checkRadioButton = function (event) {
-    let elementoAtivo = event.currentTarget;
-
-    if(elementoAtivo.classList.contains("check")){
-        elementoAtivo.className = "radio";
-    }else {
-        elementoAtivo.className = "radio check";
-    }
 };
 
 let excluiAlternativa = function(event){
