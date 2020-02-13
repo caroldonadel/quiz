@@ -8,14 +8,14 @@
 </div>
     <div id="listaPerguntas">
         <div class="form-group">
-            <button id="botaoAddPergunta" class="btn btn-primary">Criar pergunta</button>
+            <button id="botaoAddPergunta" class="btn btn-outline-info">Criar pergunta</button>
         </div>
     </div>
 
 </fieldset>
 
-<div class="form-group">
-<button id="botaoAddQuiz" class="btn btn-primary">Salvar Quiz</button>
+<div class="d-flex justify-content-center">
+<button id="botaoAddQuiz" class="btn btn-outline-info btn-lg mb-2 ">Salvar Quiz</button>
 </div>
 
 <script type="text/javascript" src= "/js/script-criacao-quiz.js"></script>

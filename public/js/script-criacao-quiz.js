@@ -194,13 +194,16 @@ let addNovaPergunta = function(){
     inputPergunta.placeholder = "Nova Pergunta";
     inputPergunta.className = "form-control pergunta";
 
-    let divBotao = document.createElement("div");
-    divBotao.className = "form-group col-md-2";
+    let spanBotoes = document.createElement("span");
 
     let botaoAddAlternativa =  document.createElement("button");
     botaoAddAlternativa.type = "submit";
-    botaoAddAlternativa.className ="btn btn-primary mb-2";
+    botaoAddAlternativa.className ="btn btn-outline-info mb-2 mr-1";
     botaoAddAlternativa.innerHTML = "Criar Alternativa";
+
+    let botaoExcluir =  document.createElement("button");
+    botaoExcluir.innerHTML = "Excluir";
+    botaoExcluir.className ="btn btn-outline-danger mb-2";
 
     let fieldsetAlternativas = document.createElement("fieldset");
     fieldsetAlternativas.className = "form-check";
@@ -219,15 +222,9 @@ let addNovaPergunta = function(){
     let divGroupLabelText = document.createElement("div");
     divGroupLabelText.className = "form-group col-md-6";
 
-    // let labelText = document.createElement("label");
-    // labelText.innerHTML = "Descrição";
-
     fieldsetAlternativas.appendChild(divRowLabel);
     divRowLabel.appendChild(divGroupLabelRadio);
     divGroupLabelRadio.appendChild(labelRadio);
-    // divGroupLabelRadio.appendChild(labelRadio);
-    // divRowLabel.appendChild(divGroupLabelText);
-    // divGroupLabelText.appendChild(labelText);
     labelRadio.appendChild(labelRadioHighlight);
 
     fieldsetPergunta.appendChild(divPergunta);
@@ -235,10 +232,15 @@ let addNovaPergunta = function(){
     listaPerguntas.appendChild(fieldsetPergunta);
     divPergunta.appendChild(divTexto);
     divTexto.appendChild(inputPergunta);
-    divPergunta.appendChild(divBotao);
-    divBotao.appendChild(botaoAddAlternativa);
+    // divPergunta.appendChild(divBotao);
+    divPergunta.appendChild(spanBotoes);
+    spanBotoes.appendChild(botaoAddAlternativa);
+    spanBotoes.appendChild(botaoExcluir);
+    // divBotao.appendChild(botaoAddAlternativa);
 
     let botoesalternativas = listaPerguntas.querySelectorAll("button[type=submit]");
+
+    botaoExcluir.addEventListener("click", excluiPergunta);
 
     for(let i=0;i < botoesalternativas.length;i++){
         botoesalternativas[i].addEventListener("click", addNovaAlternativa);
@@ -251,7 +253,6 @@ let addNovaAlternativa = function(){
 
     let divTodasAlternativas =  document.createElement("div");
     divTodasAlternativas.className = "input-group mb-3";
-//    divTodasAlternativas.className = "input-group";
 
     let divInputGroup = document.createElement("div");
     divInputGroup.className = "input-group-prepend";
@@ -272,6 +273,13 @@ let addNovaAlternativa = function(){
     inputAlternativa.className = "form-control w-50 alternativa";
     inputAlternativa.id = "alternativaTexto" + numeroId;
 
+    let divBotaoExcluirAlt = document.createElement("div");
+    divBotaoExcluirAlt.className = "input-group-append";
+
+    let botaoExcluirAlt =  document.createElement("button");
+    botaoExcluirAlt.innerText = "Excluir";
+    botaoExcluirAlt.className ="btn btn-outline-danger";
+
     let botaoParent = this.parentNode;
     let divParent = botaoParent.closest(".form-row");
     let fieldsetParent = divParent.closest("fieldset");
@@ -282,10 +290,13 @@ let addNovaAlternativa = function(){
     divInputGroup.appendChild(divRadio);
     divRadio.appendChild(inputRadio);
     divTodasAlternativas.appendChild(inputAlternativa);
+    divTodasAlternativas.appendChild(divBotaoExcluirAlt);
+    divBotaoExcluirAlt.appendChild(botaoExcluirAlt);
 
     numeroId++;
 
     inputRadio.addEventListener("click", checkRadioButton);
+    botaoExcluirAlt.addEventListener('click', excluiAlternativa);
 };
 
 let checkRadioButton = function (event) {
@@ -296,6 +307,20 @@ let checkRadioButton = function (event) {
     }else {
         elementoAtivo.className = "radio check";
     }
+};
+
+let excluiAlternativa = function(event){
+
+    let elementoAtivo = event.currentTarget;
+    let divAlternativa = elementoAtivo.closest(".mb-3");
+    divAlternativa.remove();
+};
+
+let excluiPergunta = function(event){
+
+    let elementoAtivo = event.currentTarget;
+    let fieldsetPergunta = elementoAtivo.closest(".p-1");
+    fieldsetPergunta.remove();
 };
 
 botaoAddQuiz.addEventListener("click", addQuizAjax);

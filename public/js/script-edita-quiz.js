@@ -6,8 +6,6 @@ let numeroNomeRadio = 1;
 let numeroId = 1;
 let tituloIncompleto=false;
 let idquiz = document.querySelector("#idquiz").value;
-// let tituloQuiz = document.querySelector("#inputAddress").value;
-// let perguntas = document.querySelectorAll(".pergunta");
 let perguntaIncompleta=false;
 // let radioRespondido=true;
 let alternativaIncompleta=false;
@@ -259,13 +257,6 @@ let editaAlternativasAjax = function(alternativa){
     xhr.open("POST", "/edita-alternativas");
     xhr.setRequestHeader("Content-Type", "application/json");
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            console.log("edita alt");
-
-        }
-    };
-
     xhr.send(JSON.stringify(alternativa));
 };
 
@@ -273,17 +264,6 @@ let editaPerguntasAjax = function(pergunta){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/edita-perguntas");
     xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-
-            console.log("edita p");
-            // let divAlerta = document.querySelector("#divAlerta");
-            // divAlerta.className = "alert alert-success";
-            // divAlerta.innerText = "Quiz salvo com sucesso";
-
-        }
-    };
 
     xhr.send(JSON.stringify(pergunta));
 };
@@ -298,9 +278,9 @@ let editaQuizAjax = function(quiz){
         if (xhr.status === 200) {
 
             console.log("edita quiz");
-            // let divAlerta = document.querySelector("#divAlerta");
-            // divAlerta.className = "alert alert-success";
-            // divAlerta.innerText = "Quiz salvo com sucesso";
+            let divAlerta = document.querySelector("#divAlerta");
+            divAlerta.className = "alert alert-success";
+            divAlerta.innerText = "Quiz salvo com sucesso";
         }
     };
 
@@ -440,14 +420,14 @@ let excluiAlternativa = function(event){
     let elementoAtivo = event.currentTarget;
     let divAlternativa = elementoAtivo.closest(".mb-3");
     divAlternativa.remove();
-}
+};
 
 let excluiPergunta = function(event){
 
     let elementoAtivo = event.currentTarget;
     let fieldsetPergunta = elementoAtivo.closest(".p-1");
     fieldsetPergunta.remove();
-}
+};
 
 botaoAddQuiz.addEventListener("click", confereQuiz);
 botaoAddPergunta.addEventListener("click", addNovaPergunta);

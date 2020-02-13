@@ -13,8 +13,8 @@
 
 <div class="list-group ">
 <?php foreach ($lista as $linha) : ?>
-    <div class=" d-flex justify-content-between mh-100 w-100 p-2 mb-2 mx-auto border border-light rounded bg-light">
-        <a href="/quiz?id=<?= $linha['idquizzes'] ?>&idUser=<?= $idUsuario ?>" class="text-info h-25 w-75 h5">
+    <div class=" d-flex justify-content-between  w-100 p-1 mb-2 mx-auto border border-light rounded bg-light">
+        <a href="/quiz?id=<?= $linha['idquizzes'] ?>&idUser=<?= $idUsuario ?>" class="text-info my-auto w-75 h5 p-0">
             <?= $linha['titulo'] ?>
         </a>
         <span >
