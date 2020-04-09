@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Quiz\Armazenamento\Quiz;
 
 use Nyholm\Psr7\Response;
@@ -26,9 +25,11 @@ class FormularioEdicao implements RequestHandlerInterface
         $alternativas = new AlternativasModel();
         $listaAlternativas = $alternativas->listar();
 
+
         $html =  $this->renderizaHtml('quiz/edita-quiz.php', [
             'titulo' => 'Editar Quiz',
             'idquiz'=> $quiz->getIdQuizzes(),
+            'idUsuario'=> $quiz->getIdUsuarios(),
             'tituloQuiz' => $quiz->getTitulo(),
             'listaPerguntas' => $listaPerguntas,
             'listaAlternativas' => $listaAlternativas

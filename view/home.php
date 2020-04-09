@@ -1,17 +1,55 @@
-<?php include __DIR__ . '/inicio-html.php';?>
+<?php //include __DIR__ . '/inicio-html.php';?>
 
-<form action="/login" method="post">
-    <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--<h1> --><?//=  $_SESSION['logado'] ?><!-- </h1>-->
+<?php if (($_SESSION['logado']===true)): ?>
+    <nav class="navbar navbar-dark bg-dark mb-2">
+        <ul class="nav justify-content-center">
+
+            <li class="nav-item active">
+                <a class="navbar-brand" href="/inicio">Início</a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="navbar-brand" href="/logout">Sair</a>
+            </li>
+
+        </ul>
+    </nav>
+<?php endif; ?>
+
+<div class="container" >
+    <div class="card text-white bg-info mb-3" style="width: 100%">
+        <div class="card-body">
+            <h1><?= $titulo; ?></h1>
+        </div>
     </div>
-</form>
-
-<form action="/novo-user" method="post">
-    <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Novo Usuário</button>
+    <div id="divAlerta" class="alert" style="margin: 0">
+        <?php if (isset($_SESSION['mensagem'])): ?>
+            <?= $_SESSION['mensagem']; ?>
+            <?php
+            unset($_SESSION['mensagem']);
+            unset($_SESSION['tipo_mensagem']);
+        endif;
+        ?>
     </div>
-</form>
 
-</div>
+<!--<span class="d-flex justify-content-center">-->
+<span >
+    <a href="/login" class="btn btn-primary btn-lg mr-1">Login</a>
+    <a href="/novo-user" class="btn btn-primary btn-lg">Novo Usuário</a>
+</span>
+
+<img class="banner" src="banner.jpg" alt="teste">
+
 </body>
 </html>
+

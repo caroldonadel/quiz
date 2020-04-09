@@ -19,7 +19,7 @@
         </a>
         <span >
         <?php if($nivel === 'admin') { ?>
-            <a href="/exclui-quiz?id=<?=$linha['idquizzes']?>" class="h4 btn btn-outline-danger  m-0">
+            <a href="/exclui-quiz?id=<?=$linha['idquizzes']?>" class="h4 btn btn-outline-danger m-0">
                 Deletar
             </a>
             <a href="/edita-quiz?id=<?=$linha['idquizzes']?>" class="h4 btn btn-outline-success m-0">
