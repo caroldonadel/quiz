@@ -23,10 +23,11 @@ session_start();
 
 $ehRotaDeLogin = stripos($caminho, 'login');
 $ehNovoUser = stripos($caminho, 'user');
-$ehHome = stripos($caminho, 'home');
-//$ehHome = stripos($caminho, 'home');
+$ehHome = "/";
+
 if ((!isset($_SESSION['logado']) || $_SESSION['logado']===false)
-    && $ehRotaDeLogin === false && $ehNovoUser === false && $ehHome === false) {
+    && $ehRotaDeLogin === false && $ehNovoUser === false && $caminho !== $ehHome) {
+//    && $ehRotaDeLogin === false && $ehNovoUser === false && $ehHome === false) {
 //if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false && $ehNovoUser === false && $ehHome ===false) {
     header('Location: /login');
     exit();

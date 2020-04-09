@@ -20,6 +20,6 @@ class Home implements RequestHandlerInterface
             'titulo' => 'Home'
         ]);
 
-        return new Response(200, ['Cache-Control'=>' no-cache'], $html);
+        return new Response(200, [], $html);
     }
 }
