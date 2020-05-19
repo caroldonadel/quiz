@@ -49,7 +49,6 @@ class CadastraUsuario implements RequestHandlerInterface
 
         $quizzes = new QuizModel();
 
-
         $html =  $this->renderizaHtml('users/pagina-principal-usuario.php', [
             'titulo' => 'Seus Quizzes',
             'nivel' => $usuario->getNivel(),
